@@ -2,11 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # 17
 VisualStudioVersion = 17.11.35111.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvShowsFrontend", "Source\TvShowsFrontend\TvShowsFrontend\TvShowsFrontend.csproj", "{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvShowsFrontend", "Source\TvShowsFrontend\TvShowsFrontend\TvShowsFrontend.csproj", "{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvShowsFrontend.Client", "Source\TvShowsFrontend\TvShowsFrontend.Client\TvShowsFrontend.Client.csproj", "{2A982697-4047-4CD9-991C-345163AD0311}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvShowsFrontend.Client", "Source\TvShowsFrontend\TvShowsFrontend.Client\TvShowsFrontend.Client.csproj", "{2A982697-4047-4CD9-991C-345163AD0311}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvApi", "Source\TvShows.Api\TvApi.csproj", "{400FC806-4A68-4933-B3B6-2E2C70DDF7B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvApi", "Source\TvShows.Api\TvApi.csproj", "{400FC806-4A68-4933-B3B6-2E2C70DDF7B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

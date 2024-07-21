@@ -18,10 +18,10 @@ namespace TvApi.Entities
         public required AgeLimit ShowAgeLimit { get; init; }
 
         [JsonPropertyName("previewUrl")]
-        public required string PreviewUrl { get; init; }
+        public required string? PreviewUrl { get; init; }
 
         [JsonPropertyName("description")]
-        public required string Description { get; init; }
+        public required string? Description { get; init; }
 
         [JsonPropertyName("timeStart")]
         public required long TimeStart { get; init; }
