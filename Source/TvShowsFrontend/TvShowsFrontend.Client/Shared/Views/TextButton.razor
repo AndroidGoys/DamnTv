@@ -1,0 +1,13 @@
+﻿<button
+    class="text-button"
+    @onclick=OnClick>
+
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public required EventCallback<MouseEventArgs> OnClick { get; init; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; init; } = null;
+}

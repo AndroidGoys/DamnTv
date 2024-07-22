@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
+using Microsoft.AspNetCore.Components.Web;
+
 using TvApi;
 using TvApi.Entities;
 using TvApi.Models;
@@ -10,46 +12,80 @@ using TvShowsFrontend.Client.Widgets.Views;
 
 namespace TvShowsFrontend.Client.Widgets.ViewModels
 {
-    public class SharingWidgetViewModel(
-        MinimalTvApiClient apiClient,
-        ILogger<SharingWidgetViewModel> logger
-    ) : BaseViewModel, ISharingWidgetViewModel
+    public class SharingWidgetViewModel: BaseViewModel, ISharingWidgetViewModel
     {
-        private readonly MinimalTvApiClient _apiClient = apiClient;
-        private readonly ILogger _logger = logger;
+        private readonly MinimalTvApiClient _apiClient;
+        private readonly ILogger _logger;
 
-        private ChannelDetails? _channelDetails = null;
-        private TvReleases? _channelReleases = null;
+        private int _defaultLimit;
 
-        private string _title = "Давай посмотрим...";
+        public SharingWidgetViewModel(MinimalTvApiClient apiClient, ILogger<SharingWidgetViewModel> logger)
+        {
+            _defaultLimit = 4;
+
+            _apiClient = apiClient;
+            _logger = logger;
+
+            _title = String.Empty;
+            _channelImageUrl = String.Empty;
+            _channelDescription = String.Empty;
+
+            OpenInAppUrl = "http://176.109.106.211:8080/openapi";
+
+            _releases = null;
+            _viewLinks = null;
+
+            _currentTab = SharingWidgetTab.TvProgram;
+
+            SelectTvProgramTab = (args) => CurrentTab = SharingWidgetTab.TvProgram;
+            SelectViewLinksTab = (args) => CurrentTab = SharingWidgetTab.ViewLinks;
+        }
+
+
+        private string _title;
         public string Title {
             get => _title;
             private set => SetProperty(ref _title, value);
         }
 
-        private string _channelImageUrl = String.Empty;
+        private string _channelImageUrl;
         public string ChannelImageUrl {
             get => _channelImageUrl;
             private set => SetProperty(ref _channelImageUrl, value);
         }
 
-        private string _channelDescription = String.Empty;
+        private string _channelDescription;
         public string ChannelDescription {
             get => _channelDescription;
             private set => SetProperty(ref _channelDescription, value);
         }
 
-        public string OpenInAppUrl { get; } = "http://176.109.106.211:8080/openapi";
+        public string OpenInAppUrl { get; }
 
-        private ReleasesListViewModel? _releases = null;
+        private ReleasesListViewModel? _releases;
         public ReleasesListViewModel? Releases {
             get => _releases;
             private set => SetProperty(ref _releases, value);
         }
 
+        private ViewLinksViewModel? _viewLinks;
+        public ViewLinksViewModel? ViewLinks {
+            get => _viewLinks;
+            private set => SetProperty(ref _viewLinks, value);
+        }
+
+        private SharingWidgetTab _currentTab;
+        public SharingWidgetTab CurrentTab {
+            get => _currentTab;
+            private set => SetProperty(ref _currentTab, value);
+        }
+
+        public Action<MouseEventArgs> SelectTvProgramTab { get; }
+        public Action<MouseEventArgs> SelectViewLinksTab { get; }
+
         public async Task InitializeAsync(SharingParameters parameters)
         {
-            int limit = (parameters.Limit.HasValue)? parameters.Limit.Value : 1;
+            int limit = (parameters.Limit.HasValue)? parameters.Limit.Value : _defaultLimit;
 
             DateTimeOffset timeStart = DateTimeOffset.FromUnixTimeSeconds(
                 parameters.TimeStart.GetValueOrDefault()
@@ -76,6 +112,7 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
 
             TvReleases channelReleases = await getReleasesTask;
             Releases = new(channelReleases);
+            ViewLinks = new(channelDetails.ViewUrls); 
         }
     }
 }

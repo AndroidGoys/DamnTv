@@ -1,0 +1,11 @@
+﻿<a @attributes="OutsideAttributes" class="white-transition-link" href="@Url">@ChildContent</a>
+
+@code {
+    [Parameter]
+    public required RenderFragment ChildContent { get; init; }
+    [Parameter]
+    public required string Url { get; init; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? OutsideAttributes { get; set; } = null;
+}

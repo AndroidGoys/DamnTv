@@ -10,6 +10,7 @@
 
 .about-channel__title__container {
     display: flex;
+    align-items: center;
     flex-direction: row;
     column-gap: 16px;
 }
@@ -24,7 +25,7 @@
 }
 
 .about-channel__title{
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 600;
 }
 
@@ -35,4 +36,23 @@
     text-align: justify;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+.tabs-nav{
+    display: flex;
+    margin: 0 0 10px 18px;
+    gap: 10px;
+    flex-direction: row;
+    margin: 0 0 10px 18px;
+}
+
+.tabs-nav__selector,
+.tabs-nav__selected-selector {
+    font-size: 0.9em;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.tabs-nav__selected-selector{
+    color: #00871e;
 }

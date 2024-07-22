@@ -1,0 +1,15 @@
+﻿@using TvShowsFrontend.Client.Shared.Views
+@using Features.ViewModels
+
+<div class="links">
+<OpenInAppLink/>
+@foreach(Uri link in ViewModel.ViewLinks)
+{
+    <WhiteTransitionLink Url="@link.ToString()">Смотреть на @link.Host</WhiteTransitionLink>
+}
+</div>
+
+@code {
+    [Parameter]
+    public required ViewLinksViewModel ViewModel { get; init; }
+}

@@ -5,19 +5,23 @@
 {
     <NotFound Message="@ViewModel.NotFoundMessage"/>
 }   
-else if (ViewModel.IsExpanded )
+else if (ViewModel.IsCollapsed )
 {
-    <ReleaseView ViewModel="ViewModel.Releases.First()"/>
-    <WhiteButton> Развернуть </WhiteButton>
+    <div class="releases">
+        <ReleaseView ViewModel="ViewModel.Releases.First()"/>
+        <TextButton OnClick="@ViewModel.ChangeVisibility"> Развернуть </TextButton>
+    </div>
 }
 else
 {
+    <div class="releases">
     @foreach(ReleaseViewModel release in ViewModel.Releases)
     {
         <ReleaseView ViewModel="@release"/>
     }
-    
-    <WhiteButton> Свернуть </WhiteButton>
+    <OpenInAppLink/>
+    <TextButton OnClick="@ViewModel.ChangeVisibility"> Свернуть </TextButton>
+    </div>
 }
 
 @code {

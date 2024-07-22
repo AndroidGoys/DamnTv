@@ -1,25 +1,37 @@
 ﻿using System.Collections.ObjectModel;
 
-using TvApi.Entities;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
+using TvApi.Entities;
 using TvShowsFrontend.Client.Shared.ViewModels;
 
 namespace TvShowsFrontend.Client.Features.ViewModels;
 
-public class ReleasesListViewModel(TvReleases releases) : BaseViewModel
+public class ReleasesListViewModel : BaseViewModel
 {
-    private bool _isExpanded = false;
-    public bool IsExpanded {
-        get => _isExpanded;
-        private set => SetProperty(ref _isExpanded, value);
+    private bool _isCollapsed;
+
+    public ReleasesListViewModel(TvReleases? releases)
+    {
+        _isCollapsed = true;
+        ChangeVisibility = (args) => IsCollapsed = !IsCollapsed;
+        NotFoundMessage = "Телепередачи за эту дату не найдены";
+        Releases = new(
+            releases?.Releases
+            ?.Select(release => new ReleaseViewModel(release))
+            ?.ToList() ?? new ()
+        );
     }
 
-    public string NotFoundMessage { get; } = "Телепередачи за эту дату не найдены";
+    public ObservableCollection<ReleaseViewModel> Releases { get; }
+    public string NotFoundMessage { get; }
+    public Action<MouseEventArgs> ChangeVisibility { get; }
 
-    public ObservableCollection<ReleaseViewModel> Releases { get; } =
-        new(
-            releases.Releases
-            .Select(release => new ReleaseViewModel(release))
-            .ToList()
-        );
+    public bool IsCollapsed
+    {
+        get => _isCollapsed;
+        private set => SetProperty(ref _isCollapsed, value);
+    }
+
 }
