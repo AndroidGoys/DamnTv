@@ -1,32 +1,33 @@
-﻿using System.Text.Json.Serialization;
+﻿using TvApi.Models;
 
-namespace TvApi.Entities
+namespace TvApi.Entities;
+
+public record TvChannelRelease
 {
-    [JsonSerializable(typeof(TvChannelRelease))]
-    public record TvChannelRelease
+    public required int ShowId { get; init; }
+    public required string ShowName { get; init; }
+    public required float ShowAssessment { get; init; }
+    public required AgeLimit ShowAgeLimit { get; init; }
+
+    public string? PreviewUrl { get; init; }
+    public string? Description { get; init; }
+    public DateTimeOffset TimeStart { get; init; }
+    public DateTimeOffset TimeStop { get; init; }
+
+    internal static TvChannelRelease FromModel(TvChannelReleaseModel model, TimeSpan timeZone) 
     {
-        [JsonPropertyName("showId")]
-        public required int ShowId { get; init; }
-
-        [JsonPropertyName("showName")]
-        public required string ShowName { get; init; }
-
-        [JsonPropertyName("showAssessment")]
-        public required float ShowAssessment { get; init; }
-
-        [JsonPropertyName("showAgeLimit")]
-        public required AgeLimit ShowAgeLimit { get; init; }
-
-        [JsonPropertyName("previewUrl")]
-        public required string? PreviewUrl { get; init; }
-
-        [JsonPropertyName("description")]
-        public required string? Description { get; init; }
-
-        [JsonPropertyName("timeStart")]
-        public required long TimeStart { get; init; }
-
-        [JsonPropertyName("timeStop")]
-        public required long TimeStop { get; init; }
+        DateTimeOffset timeStart = DateTimeOffset.FromUnixTimeSeconds(model.TimeStart);
+        DateTimeOffset timeStop = DateTimeOffset.FromUnixTimeSeconds(model.TimeStop);
+        return new TvChannelRelease()
+        {
+            ShowId = model.ShowId,
+            ShowName = model.ShowName,
+            ShowAssessment = model.ShowAssessment,
+            ShowAgeLimit = model.ShowAgeLimit,
+            PreviewUrl = model.PreviewUrl,
+            Description = model.Description,
+            TimeStart = new(timeStart.DateTime, timeZone),
+            TimeStop = new(timeStop.DateTime, timeZone)
+        };
     }
 }

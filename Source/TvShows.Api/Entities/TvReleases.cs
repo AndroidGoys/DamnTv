@@ -1,20 +1,28 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TvApi.Entities
+using TvApi.Models;
+
+namespace TvApi.Entities;
+
+public record TvReleases
 {
-    [JsonSerializable(typeof(TvReleases))]
-    public record TvReleases
+    public required DateTimeOffset TimeStart { get; init; }
+    public required DateTimeOffset TimeStop { get; init; }
+    public required int TotalCount { get; init; }
+    public required IEnumerable<TvChannelRelease> Releases { get; init; }
+
+    internal static TvReleases FromModel(TvReleasesModel model, TimeSpan timeZone) 
     {
-        [JsonPropertyName("timeStart")]
-        public required long TimeStart { get; init; }
-
-        [JsonPropertyName("timeStop")]
-        public required long TimeStop { get; init; }
-
-        [JsonPropertyName("totalCount")]
-        public required int TotalCount { get; init; }
-        
-        [JsonPropertyName("releases")]
-        public required IEnumerable<TvChannelRelease> Releases { get; init; }
+        DateTimeOffset timeStart = DateTimeOffset.FromUnixTimeSeconds(model.TimeStart);
+        DateTimeOffset timeStop = DateTimeOffset.FromUnixTimeSeconds(model.TimeStop);
+        return new TvReleases()
+        {
+            TimeStart = new(timeStart.DateTime, timeZone),
+            TimeStop = new(timeStop.DateTime, timeZone),
+            TotalCount = model.TotalCount,
+            Releases = model.Releases
+                .Select(x => TvChannelRelease.FromModel(x, timeZone))
+                .ToList()
+        };
     }
 }

@@ -1,8 +1,12 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Text.Json;
+using System.Threading.Channels;
+
 using Microsoft.Extensions.Logging;
 using TvApi.Entities;
 using TvApi.Exceptions;
+using TvApi.Models;
 
 namespace TvApi
 {
@@ -55,8 +59,7 @@ namespace TvApi
         private async Task<TResult> SendRequestAsync<TResult>(
             HttpMethod method,
             string route
-        )
-        {
+        ){
             string fullRoute = _baseRoute + route;
             HttpRequestMessage message = new(
                 method,
@@ -95,19 +98,37 @@ namespace TvApi
             int channelId,
             int limit = -1,
             DateTimeOffset? timeStart = null
-        )
-        {
+        ){
             timeStart = timeStart ?? DateTimeOffset.MinValue;
             long timeStartSeconds = timeStart.Value.ToUnixTimeSeconds();
             float timeZone = (float)timeStart.Value.Offset.TotalHours;
 
-            return await SendRequestAsync<TvReleases>(
+            TvReleasesModel releases = await SendRequestAsync<TvReleasesModel>(
                 HttpMethod.Get,
                 $"/channels/{channelId}/releases?limit={limit}" +
                     $"&time-start={timeStartSeconds}" +
                     $"&time-zone={timeZone}"
             );
 
+            return TvReleases.FromModel( releases, timeStart.Value.Offset);
+        }
+
+        public async Task<ReviewsDistribution> GetChannelReviewsDistributionAsync(
+            int channelId
+        ){
+            return await SendRequestAsync<ReviewsDistribution>(
+                HttpMethod.Get,
+                $"/channels/{channelId}/reviews/distribution"
+            );
+        }
+
+        public async Task<ReviewsDistribution> GetShowReviewsDistributionAsync(
+            int showId
+        ){
+            return await SendRequestAsync<ReviewsDistribution>(
+                HttpMethod.Get,
+                $"/channels/{showId}/reviews/distribution"
+            );
         }
     }
 }

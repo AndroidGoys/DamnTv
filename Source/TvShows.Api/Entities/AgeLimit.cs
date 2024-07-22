@@ -16,4 +16,26 @@ namespace TvApi.Entities
         Restricted = 0b1011,  // R Лица, не достигшие 17-летнего возраста, допускаются на фильм только в сопровождении одного из родителей
         NoOne17AndUnderAdmitted = 0b1100 // NC-17 Лица 17-летнего возраста и младше на фильм не допускаются;
     }
+
+    public static class AgeLimitExtensions 
+    {
+        public static string ToString(this AgeLimit ageLimit) 
+        {
+            return ageLimit switch
+            {
+                AgeLimit.NoRestrictions => "0+",
+                AgeLimit.OverSixYearsOld => "6+",
+                AgeLimit.OverTwelveYearsOld => "12+",
+                AgeLimit.OverSixteenYearsOld => "16+",
+                AgeLimit.OverEighteenYearsOld => "18+",
+
+                AgeLimit.GeneralAudiences => "G",
+                AgeLimit.ParentalGuidanceSuggested => "PG",
+                AgeLimit.ParentsStronglyCautioned => "PG-13",
+                AgeLimit.Restricted => "R",
+                AgeLimit.NoOne17AndUnderAdmitted => "NC-17",
+                _ => throw new NotImplementedException()
+            };
+        }
+    }
 }
