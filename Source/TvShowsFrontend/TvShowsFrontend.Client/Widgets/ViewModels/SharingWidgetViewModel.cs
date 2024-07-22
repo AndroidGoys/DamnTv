@@ -3,6 +3,7 @@
 using TvApi;
 using TvApi.Entities;
 using TvApi.Models;
+using TvShowsFrontend.Client.Features.ViewModels;
 using TvShowsFrontend.Client.Shared.ViewModels;
 using TvShowsFrontend.Client.Widgets.Models;
 using TvShowsFrontend.Client.Widgets.Views;
@@ -26,14 +27,25 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
             private set => SetProperty(ref _title, value);
         }
 
-        public float? ChannelAssessment => _channelDetails?.Assessment;
-        public string? ChannelImageUrl => _channelDetails?.ImageUrl;
-        public string ChannelDescription => _channelDetails?.Description ?? String.Empty;
-        public IEnumerable<string> ChannelViewUrls => _channelDetails?.ViewUrls ?? Array.Empty<string>();
+        private string _channelImageUrl = String.Empty;
+        public string ChannelImageUrl {
+            get => _channelImageUrl;
+            private set => SetProperty(ref _channelImageUrl, value);
+        }
+
+        private string _channelDescription = String.Empty;
+        public string ChannelDescription {
+            get => _channelDescription;
+            private set => SetProperty(ref _channelDescription, value);
+        }
+
         public string OpenInAppUrl { get; } = "http://176.109.106.211:8080/openapi";
 
-        public ObservableCollection<ReleaseWidgetViewModel> Releases { get; private set; } = new();
-
+        private ReleasesListViewModel? _releases = null;
+        public ReleasesListViewModel? Releases {
+            get => _releases;
+            private set => SetProperty(ref _releases, value);
+        }
 
         public async Task InitializeAsync(SharingParameters parameters)
         {
@@ -57,11 +69,13 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
                 timeStart
             );
 
-            _channelDetails = await getDetailsTask;
-            Title = $"{_channelDetails.Name}";
+            ChannelDetails channelDetails = await getDetailsTask;
+            Title = $"{channelDetails.Name}";
+            ChannelImageUrl = channelDetails.ImageUrl ?? String.Empty;
+            ChannelDescription = channelDetails.Description ?? String.Empty;
 
-            _channelReleases = await getReleasesTask;
-            Releases = new(_channelReleases.Releases.Select(x => new ReleaseWidgetViewModel(x)));
+            TvReleases channelReleases = await getReleasesTask;
+            Releases = new(channelReleases);
         }
     }
 }

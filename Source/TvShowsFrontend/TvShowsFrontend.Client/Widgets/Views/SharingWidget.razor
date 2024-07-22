@@ -1,4 +1,5 @@
 ﻿@using Widgets.ViewModels
+@using TvShowsFrontend.Client.Features.Views;
 @using TvShowsFrontend.Client.Shared.Views
 
 <div class=invite-box>
@@ -17,12 +18,9 @@
         </span>
     </div>
     
-    <ul>
-        @foreach (ReleaseWidgetViewModel release in ViewModel.Releases)
-        {
-            <li><ReleaseWidget ViewModel="@release"/></li>
-        }
-    </ul>
+    @if(ViewModel.Releases != null){
+        <ReleasesListView ViewModel="@ViewModel.Releases"/>
+    }
 </div>
 
 @code {

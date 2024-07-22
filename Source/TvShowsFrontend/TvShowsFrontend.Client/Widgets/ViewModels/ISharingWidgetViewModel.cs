@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-
+using TvShowsFrontend.Client.Features.ViewModels;
 using TvShowsFrontend.Client.Widgets.Models;
 
 namespace TvShowsFrontend.Client.Widgets.ViewModels
@@ -11,7 +11,7 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
         string OpenInAppUrl { get; }
         string ChannelDescription { get; }
 
-        ObservableCollection<ReleaseWidgetViewModel> Releases { get; }
+        ReleasesListViewModel? Releases { get; }
 
         Task InitializeAsync(SharingParameters parameters);
     }

@@ -1,4 +1,4 @@
-﻿@using Widgets.ViewModels
+﻿@using Features.ViewModels
 @using TvShowsFrontend.Client.Shared.Views
 
 <div class="release">
@@ -12,10 +12,8 @@
     </div>
 </div>
 
-
 @code {
     [Parameter]
-    public required ReleaseWidgetViewModel ViewModel { get; init; }
-
+    public required ReleaseViewModel ViewModel { get; init; }
     public string ReleaseProgressDirection => $"flex-direction:{(ViewModel.IsStarted ? "row" : "row-reverse")}";
 }

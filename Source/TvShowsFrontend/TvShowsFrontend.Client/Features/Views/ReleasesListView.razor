@@ -1,0 +1,20 @@
+﻿@using Features.ViewModels;
+
+@if (ViewModel.IsExpanded)
+{
+
+}
+else
+{
+    @foreach(ReleaseViewModel release in ViewModel.Releases)
+    {
+        <ReleaseView ViewModel="@release"/>
+    }
+    
+    <WhiteButton/>
+}
+
+@code {
+    [Parameter]
+    public required ReleasesListViewModel ViewModel { get; init; }
+}
