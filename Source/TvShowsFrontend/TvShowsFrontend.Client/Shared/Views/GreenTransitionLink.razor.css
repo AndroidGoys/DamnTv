@@ -1,0 +1,12 @@
+﻿.green-transition-link {
+    color: #fff;
+    text-decoration: none;
+    background-color: #00871e;
+    padding: 10px 20px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+.green-transition-link:hover {
+    background: #1ea63c;
+}

@@ -1,0 +1,8 @@
+﻿<div class="width-wrapper" @attributes="OutsideAttributes">@ChildContent</div>
+
+@code {
+    [Parameter]
+    public required RenderFragment? ChildContent { get; init; } = null;
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? OutsideAttributes { get; init; } = null;
+}

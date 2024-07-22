@@ -1,0 +1,14 @@
+﻿@using System.Drawing
+
+<h3>Tag</h3>
+
+@code {
+    [Parameter]
+    public required string Name { get; init; }
+
+    [Parameter]
+    public Color BackgroundColor { get; init; } = Color.BlueViolet;
+
+    [Parameter]
+    public Color TextColor { get; init; } = Color.FromArgb(255, 255, 255, 255);
+}

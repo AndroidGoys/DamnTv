@@ -1,0 +1,35 @@
+﻿@using Pages.ViewModels
+@using TvShowsFrontend.Client.Widgets.Views
+@using TvShowsFrontend.Client.Widgets.Models
+@using TvShowsFrontend.Client.Shared.Views
+
+@page "/sharing/{Id:int}"
+@inject ISharingViewModel ViewModel
+
+<div class="page lime-background">
+    <PhantomHeader/>
+    <WidthWrapper>
+        <SharingWidget ViewModel="@(ViewModel.SharingWidget)"/>
+    </WidthWrapper>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; init; }
+    [Parameter]
+    [SupplyParameterFromQuery(Name="time-start")]
+    public long? TimeStart { get; init; }
+    [Parameter]
+    [SupplyParameterFromQuery(Name="time-zone")]
+    public float? TimeZone { get; init; }
+    [Parameter]
+    [SupplyParameterFromQuery(Name="limit")]
+    public int? Limit { get; init; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        SharingParameters parameters = new(Id, Limit, TimeStart, TimeZone);
+        await ViewModel.InitializeAsync(parameters);
+        await base.OnInitializedAsync();
+    }
+}

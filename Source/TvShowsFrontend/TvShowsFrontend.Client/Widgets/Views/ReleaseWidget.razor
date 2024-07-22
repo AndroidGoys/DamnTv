@@ -1,0 +1,21 @@
+﻿@using Widgets.ViewModels
+@using TvShowsFrontend.Client.Shared.Views
+
+<div class="release">
+    <div class="release__title__container">
+        <h1 class="release__title">@ViewModel.Title</h1>
+        <span class="release__description">@ViewModel.Description</span>
+    </div>
+    <div class="release__progress" style=@ReleaseProgressDirection>
+        <ProgressBar Progress=@ViewModel.CalculatieProgress()/>
+        <span class="release__progress__time">@ViewModel.ProgressTimeLabel</span>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public required ReleaseWidgetViewModel ViewModel { get; init; }
+
+    public string ReleaseProgressDirection => $"flex-direction:{(ViewModel.IsStarted ? "row" : "row-reverse")}";
+}

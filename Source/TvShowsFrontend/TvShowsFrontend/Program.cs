@@ -1,16 +1,27 @@
+using System.Globalization;
+
 using TvApi;
 
 using TvShowsFrontend.Client.Pages;
+using TvShowsFrontend.Client.Pages.ViewModels;
+using TvShowsFrontend.Client.Widgets.ViewModels;
 using TvShowsFrontend.Components;
+
+
+CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddHttpClient();
+
 builder.Services.AddSingleton<MinimalTvApiClient>();
+builder.Services.AddSingleton<ISharingViewModel, SharingViewModel>();
+builder.Services.AddTransient<ISharingWidgetViewModel, SharingWidgetViewModel>();
 
 var app = builder.Build();
 
@@ -28,11 +39,13 @@ else
 
 app.UseHttpsRedirection();
 
-
 app.UseAntiforgery();
 
-app.MapStaticAssets();
+// app.MapStaticAssets(); спасибо дяд за кеширование
+app.UseStaticFiles();
+
 app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(TvShowsFrontend.Client._Imports).Assembly);
 

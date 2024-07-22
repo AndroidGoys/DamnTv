@@ -1,0 +1,8 @@
+﻿<div class="progress-bar">
+    <div class="progress-bar__active" style="width: @(Progress*100)%"/>
+</div>
+
+@code {
+    [Parameter]
+    public float Progress { get; init; } 
+}

@@ -1,0 +1,38 @@
+﻿.invite-box {
+    max-width: 700px;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center
+}
+.invite-box__about-channel{
+    padding: 18px;
+}
+
+.about-channel__title__container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+}
+
+.about-channel__title__link-wrapper {
+    margin: auto 0 auto auto;
+}
+
+.about-channel__title__image {
+    width: 48px;
+    height: 48px;
+}
+
+.about-channel__title{
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.about-channel__description {
+    display: -webkit-box;
+    overflow: hidden;
+    color: #5b6870;
+    text-align: justify;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

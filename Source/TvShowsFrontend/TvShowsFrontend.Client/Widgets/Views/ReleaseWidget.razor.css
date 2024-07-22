@@ -1,0 +1,47 @@
+﻿.release {
+    display: flex;
+    flex-direction: column;
+    grid-column-gap: 18px;
+    padding: 18px;
+    box-shadow: 0 2px 1px rgba(78,80,86,.12),0 0 2px rgba(0,0,0,.16);
+    border-radius: 8px;
+}
+
+.release__preview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+.release__title {
+    font-size: 0.75em;
+    line-height: 20px;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+.release__description {
+    color: #5b6870;
+    text-align: justify;
+    line-height: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.release__progress {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.release__progress__time {
+    color: #98a3ae;
+    font-weight: 400;
+    font-size: 12px;
+    white-space: nowrap;
+}

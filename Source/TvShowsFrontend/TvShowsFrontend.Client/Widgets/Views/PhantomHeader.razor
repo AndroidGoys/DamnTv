@@ -1,0 +1,11 @@
+﻿<header class="header">
+    <img class="header__logo-image" src="@LogoImage"/>
+    <label class="header__logo-label"> 
+        @LogoLable
+    </label>
+</header>
+
+@code {
+    public string LogoImage { get; } = "/images/lime-logo.png";
+    public string LogoLable { get; } = "TvShows";
+}
