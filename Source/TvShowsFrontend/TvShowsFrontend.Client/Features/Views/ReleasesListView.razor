@@ -1,8 +1,14 @@
 ﻿@using Features.ViewModels;
+@using TvShowsFrontend.Client.Shared.Views;
 
-@if (ViewModel.IsExpanded)
+@if (!ViewModel.Releases.Any())
 {
-
+    <NotFound Message="@ViewModel.NotFoundMessage"/>
+}   
+else if (ViewModel.IsExpanded )
+{
+    <ReleaseView ViewModel="ViewModel.Releases.First()"/>
+    <WhiteButton> Развернуть </WhiteButton>
 }
 else
 {
@@ -11,7 +17,7 @@ else
         <ReleaseView ViewModel="@release"/>
     }
     
-    <WhiteButton/>
+    <WhiteButton> Свернуть </WhiteButton>
 }
 
 @code {

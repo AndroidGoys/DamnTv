@@ -1,0 +1,9 @@
+﻿<div class="not-found">
+    <img class="not-found__image" src="@Assets["images/404-error-icon.png"]" />
+    <span class="not-found__message">@Message</span>
+</div>
+
+@code {
+    [Parameter]
+    public required string Message { get; init; }
+}

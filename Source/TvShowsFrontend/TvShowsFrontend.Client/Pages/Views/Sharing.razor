@@ -5,12 +5,24 @@
 
 @page "/sharing/{Id:int}"
 @inject ISharingViewModel ViewModel
+@inject ILogger<Sharing> Logger
 
 <div class="page lime-background">
     <PhantomHeader/>
-    <WidthWrapper>
-        <SharingWidget ViewModel="@(ViewModel.SharingWidget)"/>
-    </WidthWrapper>
+    @if (ViewModel.IsInitialized)
+    {
+        <WidthWrapper>
+            @if (ViewModel.IsNotFound)
+            {
+                <NotFound404 Message="@ViewModel.NotFoundMessage"/>
+            }
+            else
+            {
+                <SharingWidget ViewModel="@(ViewModel.SharingWidget)"/>
+            }
+        </WidthWrapper>
+    }
+
 </div>
 
 @code {
@@ -30,6 +42,7 @@
     {
         SharingParameters parameters = new(Id, Limit, TimeStart, TimeZone);
         await ViewModel.InitializeAsync(parameters);
+
         await base.OnInitializedAsync();
     }
 }

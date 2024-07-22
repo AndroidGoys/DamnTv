@@ -1,0 +1,14 @@
+﻿.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.not-found__image {
+    width: 80px;
+    height: 80px;
+}
+
+.not-found__message {
+    font-weight: 700;
+}

@@ -9,10 +9,12 @@ namespace TvShowsFrontend.Client.Features.ViewModels;
 public class ReleasesListViewModel(TvReleases releases) : BaseViewModel
 {
     private bool _isExpanded = false;
-    public bool IsExpanded { 
+    public bool IsExpanded {
         get => _isExpanded;
-        private set => SetProperty(ref _isExpanded, value); 
+        private set => SetProperty(ref _isExpanded, value);
     }
+
+    public string NotFoundMessage { get; } = "Телепередачи за эту дату не найдены";
 
     public ObservableCollection<ReleaseViewModel> Releases { get; } =
         new(
