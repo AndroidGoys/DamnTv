@@ -1,15 +1,19 @@
 ﻿@using TvShowsFrontend.Client.Features.ViewModels;
 @using TvShowsFrontend.Client.Shared.Views;
 
-@inject NavigationManager NavigationManager
-
-<GreenTransitionLink @onclick="@OnClick" Url="@ViewModel.Url">
+<GreenTransitionLink @onclick="@OnClick" @attributes="@OutsideAttributes" Url="@ViewModel.Url">
     @ViewModel.Message
 </GreenTransitionLink>
 
 @code {
     [Parameter]
     public required OpenInAppLinkViewModel ViewModel { get; init; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? OutsideAttributes { get; set; } = null;
+
+    [Inject]
+    public required NavigationManager NavigationManager { get; init; }
 
     public void OnClick(MouseEventArgs args)
     {

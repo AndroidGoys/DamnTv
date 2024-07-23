@@ -14,7 +14,6 @@ using TvShowsFrontend.Client.Widgets.ViewModels;
 namespace TvShowsFrontend.Client.Pages.ViewModels;
 
 public class SharingViewModel(
-
     ILogger<SharingViewModel> logger,
     MinimalTvApiClient apiClient,
     IServiceProvider services
@@ -55,13 +54,13 @@ public class SharingViewModel(
     {
         try
         {
-            NormalizedSharingParameters normalizedParametrs = parameters.Normalize();
+            NormalizedSharingParameters normalizedParameters = parameters.Normalize();
 
             Task<ChannelDetails> getDetailsTask = ApiClient.GetChannelDetailsAsync(parameters.ChannelId);
             Task<TvReleases> getReleasesTask = ApiClient.GetChannelReleasesAsync(
                 parameters.ChannelId,
-                normalizedParametrs.Limit,
-                normalizedParametrs.TimeStart
+                normalizedParameters.Limit,
+                normalizedParameters.TimeStart
             );
 
             ChannelDetails channelDetails = await getDetailsTask;
@@ -92,7 +91,7 @@ public class SharingViewModel(
             _sharingWidget = new SharingWidgetViewModel(
                 channelDetails, 
                 channelReleases, 
-                normalizedParametrs, 
+                normalizedParameters, 
                 sharingLogger
             );
         }

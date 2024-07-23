@@ -2,13 +2,10 @@ using System.Globalization;
 
 using TvApi;
 
-using TvShowsFrontend.Client.Pages;
 using TvShowsFrontend.Client.Pages.ViewModels;
-using TvShowsFrontend.Client.Widgets.ViewModels;
-using TvShowsFrontend.Components;
 using TvShowsFrontend.Components.Pages.ViewModels;
 using TvShowsFrontend.Controllers;
-
+using TvShowsFrontend.Components;
 
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
