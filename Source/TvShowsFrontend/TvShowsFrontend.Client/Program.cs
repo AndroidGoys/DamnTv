@@ -7,8 +7,6 @@ using TvApi;
 using TvShowsFrontend.Client.Pages.ViewModels;
 using TvShowsFrontend.Client.Widgets.ViewModels;
 
-CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.Logging.SetMinimumLevel(LogLevel.Debug);

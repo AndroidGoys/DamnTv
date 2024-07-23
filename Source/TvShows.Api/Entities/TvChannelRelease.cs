@@ -26,8 +26,8 @@ public record TvChannelRelease
             ShowAgeLimit = model.ShowAgeLimit,
             PreviewUrl = model.PreviewUrl,
             Description = model.Description,
-            TimeStart = new(timeStart.DateTime, timeZone),
-            TimeStop = new(timeStop.DateTime, timeZone)
+            TimeStart = new(timeStart.DateTime + timeZone, timeZone),
+            TimeStop = new(timeStop.DateTime + timeZone, timeZone)
         };
     }
 }

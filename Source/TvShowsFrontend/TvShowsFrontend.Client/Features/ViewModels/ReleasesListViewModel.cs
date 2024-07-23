@@ -12,18 +12,20 @@ public class ReleasesListViewModel : BaseViewModel
 {
     private bool _isCollapsed;
 
-    public ReleasesListViewModel(TvReleases? releases)
+    public ReleasesListViewModel(TvReleases? releases, OpenInAppLinkViewModel openInApp)
     {
         _isCollapsed = true;
         ChangeVisibility = (args) => IsCollapsed = !IsCollapsed;
         NotFoundMessage = "Телепередачи за эту дату не найдены";
+        OpenInAppLink = openInApp;
         Releases = new(
             releases?.Releases
             ?.Select(release => new ReleaseViewModel(release))
-            ?.ToList() ?? new ()
+            ?.ToList() ?? new()
         );
     }
 
+    public OpenInAppLinkViewModel OpenInAppLink { get; }
     public ObservableCollection<ReleaseViewModel> Releases { get; }
     public string NotFoundMessage { get; }
     public Action<MouseEventArgs> ChangeVisibility { get; }

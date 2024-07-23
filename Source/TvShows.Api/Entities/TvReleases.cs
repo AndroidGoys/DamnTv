@@ -17,8 +17,8 @@ public record TvReleases
         DateTimeOffset timeStop = DateTimeOffset.FromUnixTimeSeconds(model.TimeStop);
         return new TvReleases()
         {
-            TimeStart = new(timeStart.DateTime, timeZone),
-            TimeStop = new(timeStop.DateTime, timeZone),
+            TimeStart = new(timeStart.DateTime + timeZone, timeZone),
+            TimeStop = new(timeStop.DateTime + timeZone, timeZone),
             TotalCount = model.TotalCount,
             Releases = model.Releases
                 .Select(x => TvChannelRelease.FromModel(x, timeZone))

@@ -6,6 +6,7 @@ using TvApi;
 using TvApi.Entities;
 using TvApi.Models;
 using TvShowsFrontend.Client.Features.ViewModels;
+using TvShowsFrontend.Client.Features.Views;
 using TvShowsFrontend.Client.Shared.ViewModels;
 using TvShowsFrontend.Client.Widgets.Models;
 using TvShowsFrontend.Client.Widgets.Views;
@@ -87,15 +88,19 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
         {
             int limit = (parameters.Limit.HasValue)? parameters.Limit.Value : _defaultLimit;
 
+            TimeSpan timeZoneOffset;
+            if (parameters.TimeZone.HasValue)
+                timeZoneOffset = TimeSpan.FromHours(parameters.TimeZone.Value);
+            else
+                timeZoneOffset = TimeSpan.Zero;
+
             DateTimeOffset timeStart = DateTimeOffset.FromUnixTimeSeconds(
                 parameters.TimeStart.GetValueOrDefault()
             );
-            
+
             timeStart = new(
-                timeStart.DateTime, 
-                TimeSpan.FromHours(
-                    parameters.TimeZone.GetValueOrDefault()
-                )
+                timeStart.DateTime + timeZoneOffset, 
+                timeZoneOffset
             );
 
             Task<ChannelDetails> getDetailsTask = _apiClient.GetChannelDetailsAsync(parameters.ChannelId);
@@ -111,8 +116,10 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
             ChannelDescription = channelDetails.Description ?? String.Empty;
 
             TvReleases channelReleases = await getReleasesTask;
-            Releases = new(channelReleases);
-            ViewLinks = new(channelDetails.ViewUrls); 
+            OpenInAppLinkViewModel openInAppLink = new(parameters.ChannelId, timeStart);
+
+            Releases = new(channelReleases, openInAppLink);
+            ViewLinks = new(channelDetails.ViewUrls, openInAppLink); 
         }
     }
 }

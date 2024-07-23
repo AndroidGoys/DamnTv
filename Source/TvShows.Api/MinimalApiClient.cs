@@ -100,7 +100,7 @@ namespace TvApi
             DateTimeOffset? timeStart = null
         ){
             timeStart = timeStart ?? DateTimeOffset.MinValue;
-            long timeStartSeconds = timeStart.Value.ToUnixTimeSeconds();
+            long timeStartSeconds = timeStart.Value.ToUniversalTime().ToUnixTimeSeconds();
             float timeZone = (float)timeStart.Value.Offset.TotalHours;
 
             TvReleasesModel releases = await SendRequestAsync<TvReleasesModel>(
@@ -110,7 +110,7 @@ namespace TvApi
                     $"&time-zone={timeZone}"
             );
 
-            return TvReleases.FromModel( releases, timeStart.Value.Offset);
+            return TvReleases.FromModel(releases, timeStart.Value.Offset);
         }
 
         public async Task<ReviewsDistribution> GetChannelReviewsDistributionAsync(

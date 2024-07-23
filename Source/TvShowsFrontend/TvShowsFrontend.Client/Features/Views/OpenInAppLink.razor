@@ -1,11 +1,11 @@
-﻿@using TvShowsFrontend.Client.Shared.Views;
+﻿@using TvShowsFrontend.Client.Features.ViewModels;
+@using TvShowsFrontend.Client.Shared.Views;
 
-<GreenTransitionLink Url="@Url">
-    @Message
+<GreenTransitionLink Url="@ViewModel.Url">
+    @ViewModel.Message
 </GreenTransitionLink>
 
 @code {
     [Parameter]
-    public string Message { get; init; } = "Открыть в приложении";
-    public string Url { get; init; } = "limetv://app.show";
+    public required OpenInAppLinkViewModel ViewModel { get; init; }
 }
