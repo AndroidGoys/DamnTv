@@ -19,7 +19,7 @@ namespace TvApi
 
         public MinimalTvApiClient(ILogger<MinimalTvApiClient> logger, HttpClient client)
         {
-            _baseRoute = "http://176.109.106.211/api";
+            _baseRoute = "https://damntv.ru/api";
             _logger = logger;
             _client = client;
             _serializerOptions = new() { RespectNullableAnnotations = true };
