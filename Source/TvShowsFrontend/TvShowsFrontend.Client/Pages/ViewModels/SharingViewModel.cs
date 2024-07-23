@@ -14,6 +14,7 @@ using TvShowsFrontend.Client.Widgets.ViewModels;
 namespace TvShowsFrontend.Client.Pages.ViewModels;
 
 public class SharingViewModel(
+
     ILogger<SharingViewModel> logger,
     MinimalTvApiClient apiClient,
     IServiceProvider services
@@ -27,7 +28,7 @@ public class SharingViewModel(
     private ISharingWidgetViewModel? _sharingWidget = null;
     public ISharingWidgetViewModel? SharingWidget {
         get => _sharingWidget;
-        set => SetProperty(ref _sharingWidget, in value);
+        protected set => SetProperty(ref _sharingWidget, in value);
     }
 
     public string NotFoundMessage { get; } = "Канал не найден";
@@ -35,19 +36,19 @@ public class SharingViewModel(
     private bool _isNotFound = false;
     public bool IsNotFound {
         get => _isNotFound;
-        set => SetProperty(ref _isNotFound, value);
+        protected set => SetProperty(ref _isNotFound, value);
     }
 
     private bool _isInitialized = false;
     public bool IsInitialized {
         get => _isInitialized;
-        private set => SetProperty(ref _isInitialized, value); 
+        protected set => SetProperty(ref _isInitialized, value); 
     }
 
     private MessengerMetaHeadersViewModel? _messengerMetaHeaders;
     public MessengerMetaHeadersViewModel? MessengerMetaHeaders {
-        get => _messengerMetaHeaders; 
-        set => SetProperty(ref _messengerMetaHeaders, value); 
+        get => _messengerMetaHeaders;
+        protected set => SetProperty(ref _messengerMetaHeaders, value); 
     }
 
     public virtual async Task InitializeAsync(SharingParameters parameters) 
@@ -66,18 +67,28 @@ public class SharingViewModel(
             ChannelDetails channelDetails = await getDetailsTask;
             TvReleases channelReleases = await getReleasesTask;
 
-            ILogger<SharingWidgetViewModel> sharingLogger = Services
-                .GetRequiredService<ILogger<SharingWidgetViewModel>>();
 
             TvChannelRelease? firstRelease = channelReleases.Releases.FirstOrDefault();
 
+            string title = "Расписание не найдено";
+            if (firstRelease != null)
+            {
+                DateTimeOffset timeStart = firstRelease.TimeStart;
+                DateTimeOffset timeStop = firstRelease.TimeStop;
+                title = $"{firstRelease.ShowName} " +
+                    $"({timeStart.Hour:d2}:{timeStart.Minute:d2} - " +
+                    $"{timeStop.Hour:d2}:{timeStop.Minute:d2})";
+            }
+
             _messengerMetaHeaders = new(
-                firstRelease?.ShowName,
                 channelDetails.Name,
+                title,
                 firstRelease?.Description,
                 CreatePreviewLink(parameters)
             );
 
+            ILogger<SharingWidgetViewModel> sharingLogger = Services
+                .GetRequiredService<ILogger<SharingWidgetViewModel>>();
             _sharingWidget = new SharingWidgetViewModel(
                 channelDetails, 
                 channelReleases, 

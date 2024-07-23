@@ -26,6 +26,7 @@ namespace TvShowsFrontend.Components.Pages.ViewModels
         {
             parameters.Limit = 1;
             await base.InitializeAsync(parameters);
+            //IsInitialized = false;
         }
     }
 }

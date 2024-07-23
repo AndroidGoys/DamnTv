@@ -7,7 +7,6 @@ using TvApi;
 using TvApi.Entities;
 using TvApi.Models;
 using TvShowsFrontend.Client.Features.ViewModels;
-using TvShowsFrontend.Client.Features.Views;
 using TvShowsFrontend.Client.Shared.ViewModels;
 using TvShowsFrontend.Client.Widgets.Models;
 using TvShowsFrontend.Client.Widgets.Views;
@@ -37,8 +36,6 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
             _releases = new(channelReleases, openInAppLink);
             _viewLinks = new(channelDetails.ViewUrls, openInAppLink);
 
-            OpenInAppUrl = "http://176.109.106.211:8080/openapi";
-
             _currentTab = SharingWidgetTab.TvProgram;
 
             SelectTvProgramTab = (args) => CurrentTab = SharingWidgetTab.TvProgram;
@@ -63,8 +60,6 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
             get => _channelDescription;
             private set => SetProperty(ref _channelDescription, value);
         }
-
-        public string OpenInAppUrl { get; }
 
         private ReleasesListViewModel _releases;
         public ReleasesListViewModel Releases {

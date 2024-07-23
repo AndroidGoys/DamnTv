@@ -24,7 +24,7 @@
         NavigationManager.LocationChanged += OnLocationChanged;
         NavigationManager.NavigateTo(ViewModel.Url);
 
-        Task.Delay(500, cancellationTokenSource.Token)
+        Task.Delay(200, cancellationTokenSource.Token)
             .ContinueWith((task) =>
             {
                 if (cancellationTokenSource.IsCancellationRequested || task.IsCanceled)

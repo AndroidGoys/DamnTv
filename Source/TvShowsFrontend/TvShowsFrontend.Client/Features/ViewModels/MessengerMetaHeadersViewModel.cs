@@ -1,8 +1,8 @@
 ﻿namespace TvShowsFrontend.Client.Features.ViewModels;
 
 public record MessengerMetaHeadersViewModel(
-    string? Title,
     string? SiteName,
+    string? Title,
     string? Description,
     string? Image
 );

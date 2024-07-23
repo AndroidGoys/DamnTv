@@ -11,7 +11,6 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
     {
         string? ChannelImageUrl { get; }
         string Title { get; }
-        string OpenInAppUrl { get; }
         string ChannelDescription { get; }
         SharingWidgetTab CurrentTab { get; }
         ReleasesListViewModel Releases { get; }

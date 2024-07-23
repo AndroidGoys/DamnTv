@@ -3,6 +3,7 @@
 
 <div class="links">
 <OpenInAppLink ViewModel="@ViewModel.OpenInAppLink"/>
+
 @foreach(Uri link in ViewModel.ViewLinks)
 {
     <WhiteTransitionLink Url="@link.ToString()">Смотреть на @link.Host</WhiteTransitionLink>
