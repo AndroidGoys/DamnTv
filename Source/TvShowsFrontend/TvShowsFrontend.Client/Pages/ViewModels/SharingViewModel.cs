@@ -1,4 +1,6 @@
-﻿using TvApi;
+﻿using System.Reflection.Metadata;
+
+using TvApi;
 using TvApi.Entities;
 
 using TvShowsFrontend.Client.Features.ViewModels;
@@ -66,25 +68,11 @@ public class SharingViewModel(
 
             TvChannelRelease? firstRelease = channelReleases.Releases.FirstOrDefault();
 
-            string previewUrl = $"/sharing/{parameters.ChannelId}/preview";
-            List<string> urlParams = new(2);
-            if (parameters.TimeStart.HasValue)
-                urlParams.Add($"time-start={parameters.TimeStart}");
-
-            if (parameters.TimeZone.HasValue)
-                urlParams.Add($"time-zone={parameters.TimeZone}");
-
-            if (urlParams.Count > 0) 
-            {
-                string strParams = String.Join("&", urlParams);
-                previewUrl += $"?{urlParams}";
-            }
-
             _messengerMetaHeaders = new(
                 firstRelease?.ShowName,
                 channelDetails.Name,
                 firstRelease?.Description,
-                previewUrl
+                CreatePreviewLink(parameters)
             );
 
             _sharingWidget = new SharingWidgetViewModel(
@@ -103,5 +91,25 @@ public class SharingViewModel(
         {
             IsInitialized = true;
         }
-    }   
+    }
+
+    private static string CreatePreviewLink(SharingParameters parameters) 
+    {
+
+        string previewUrl = $"/sharing/{parameters.ChannelId}/preview";
+        List<string> urlParams = new(2);
+        if (parameters.TimeStart.HasValue)
+            urlParams.Add($"time-start={parameters.TimeStart}");
+
+        if (parameters.TimeZone.HasValue)
+            urlParams.Add($"time-zone={parameters.TimeZone}");
+
+        if (urlParams.Count > 0)
+        {
+            string strParams = String.Join("&", urlParams);
+            previewUrl += $"?{strParams}";
+        }
+
+        return previewUrl;
+    }
 }
