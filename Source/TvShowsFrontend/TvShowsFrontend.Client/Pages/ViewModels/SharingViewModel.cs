@@ -66,11 +66,25 @@ public class SharingViewModel(
 
             TvChannelRelease? firstRelease = channelReleases.Releases.FirstOrDefault();
 
+            string previewUrl = $"/sharing/{parameters.ChannelId}/preview";
+            List<string> urlParams = new(2);
+            if (parameters.TimeStart.HasValue)
+                urlParams.Add($"time-start={parameters.TimeStart}");
+
+            if (parameters.TimeZone.HasValue)
+                urlParams.Add($"time-zone={parameters.TimeZone}");
+
+            if (urlParams.Count > 0) 
+            {
+                string strParams = String.Join("&", urlParams);
+                previewUrl += $"?{urlParams}";
+            }
+
             _messengerMetaHeaders = new(
                 firstRelease?.ShowName,
                 channelDetails.Name,
                 firstRelease?.Description,
-                channelDetails.ImageUrl
+                previewUrl
             );
 
             _sharingWidget = new SharingWidgetViewModel(
