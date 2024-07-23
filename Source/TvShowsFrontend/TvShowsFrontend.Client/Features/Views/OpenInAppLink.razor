@@ -1,11 +1,38 @@
 ﻿@using TvShowsFrontend.Client.Features.ViewModels;
 @using TvShowsFrontend.Client.Shared.Views;
 
-<GreenTransitionLink Url="@ViewModel.Url">
+@inject NavigationManager NavigationManager
+
+<GreenTransitionLink @onclick="@OnClick" Url="@ViewModel.Url">
     @ViewModel.Message
 </GreenTransitionLink>
 
 @code {
     [Parameter]
     public required OpenInAppLinkViewModel ViewModel { get; init; }
+
+    public void OnClick(MouseEventArgs args)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+        void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+        {
+            cancellationTokenSource.Cancel();
+            NavigationManager.LocationChanged -= OnLocationChanged;
+        };
+
+        NavigationManager.LocationChanged += OnLocationChanged;
+        NavigationManager.NavigateTo(ViewModel.Url);
+
+        Task.Delay(500, cancellationTokenSource.Token)
+            .ContinueWith((task) =>
+            {
+                if (cancellationTokenSource.IsCancellationRequested || task.IsCanceled)
+                    return;
+
+                NavigationManager.NavigateTo(ViewModel.AlternativeRoute);
+                NavigationManager.LocationChanged -= OnLocationChanged;
+            });
+    }
+
 }

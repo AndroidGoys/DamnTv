@@ -1,5 +1,7 @@
 ﻿using System.Reflection.Metadata;
 
+using Microsoft.AspNetCore.Components;
+
 using TvApi;
 using TvApi.Entities;
 
@@ -17,6 +19,7 @@ public class SharingViewModel(
     IServiceProvider services
 ) : BaseViewModel, ISharingViewModel
 {
+    protected readonly NavigationManager NavigationManager;
     protected readonly IServiceProvider Services = services;
     protected readonly ILogger Logger = logger;
     protected readonly MinimalTvApiClient ApiClient = apiClient;

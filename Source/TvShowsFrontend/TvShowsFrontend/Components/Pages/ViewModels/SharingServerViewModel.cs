@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 
+using Microsoft.AspNetCore.Components;
+
 using TvApi;
 using TvApi.Entities;
 
@@ -14,7 +16,7 @@ using TvShowsFrontend.Client.Widgets.Views;
 namespace TvShowsFrontend.Components.Pages.ViewModels
 {
     public class SharingServerViewModel(
-        ILogger<SharingViewModel> logger,
+        ILogger<SharingServerViewModel> logger,
         MinimalTvApiClient apiClient,
         IServiceProvider services
     ) : SharingViewModel(logger, apiClient, services), ISharingViewModel

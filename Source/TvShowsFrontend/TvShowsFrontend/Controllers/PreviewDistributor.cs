@@ -17,7 +17,7 @@ namespace TvShowsFrontend.Controllers
         private static async Task<IResult> GetPreview(int id, MinimalTvApiClient apiClient)
         {
             ChannelDetails channel = await apiClient.GetChannelDetailsAsync(id);
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = new HttpClient();   
             
             HttpResponseMessage response = await httpClient.GetAsync(channel.ImageUrl);
             Stream imageStream = await response.Content.ReadAsStreamAsync();

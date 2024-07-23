@@ -1,22 +1,26 @@
-﻿namespace TvShowsFrontend.Client.Features.ViewModels;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
 
-public class OpenInAppLinkViewModel (
-    int channelId, DateTimeOffset time, 
-    string message = "Открыть в приложении"
-)
+namespace TvShowsFrontend.Client.Features.ViewModels;
+
+public class OpenInAppLinkViewModel 
 {
-    public DateTimeOffset Time { get; } = time;
-    public int ChannelId { get; } = channelId;
-    public string Message { get; }= message;
-    public string Url => 
-        $"limetv://app.show" +
-            $"?time={
-                Time
-                .ToUniversalTime()
-            .       ToUnixTimeSeconds()
-                }" +
-            $"&id={
-                ChannelId
-            }";
 
+    public OpenInAppLinkViewModel(
+        int channelId, DateTimeOffset time,
+        string message = "Открыть в приложении"
+    )
+    {
+        long unixTime = time
+            .ToUniversalTime()
+            .ToUnixTimeSeconds();
+
+        Message = message;
+        Url = $"limetv://app.show?time={unixTime}&id={channelId}";
+        AlternativeRoute = "https://github.com/AndroidGoys/TvShowsAndroid/releases";
+    }
+    public string Message { get; }
+    public string AlternativeRoute { get; }
+    public string Url;
 }
