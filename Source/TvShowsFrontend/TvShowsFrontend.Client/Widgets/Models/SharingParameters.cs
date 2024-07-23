@@ -14,7 +14,7 @@
             else
                 timeStart = DateTimeOffset.MinValue;
 
-            int limit = Limit ?? 4;
+            int limit = Limit ?? 4  ;
 
             TimeSpan timeZoneOffset;
 

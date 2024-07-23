@@ -5,10 +5,11 @@
 }
 
 .not-found__image {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
 }
 
 .not-found__message {
+    font-size: 1.6em;
     font-weight: 700;
 }

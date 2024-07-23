@@ -17,16 +17,18 @@
     <PhantomHeader/>
     @if (ViewModel.IsInitialized)
     {
-        <WidthWrapper>
-            @if (ViewModel.IsNotFound)
-            {
+        @if (ViewModel.IsNotFound)
+        {
+            <CenteringWrapper>
                 <NotFound404 Message="@ViewModel.NotFoundMessage"/>
-            }
-            else
-            {
+            </CenteringWrapper>
+        }
+        else
+        {
+            <WidthWrapper>
                 <SharingWidget ViewModel="@(ViewModel.SharingWidget)"/>
-            }
-        </WidthWrapper>
+            </WidthWrapper>
+        }
     }
 
 </div>
