@@ -21,7 +21,6 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<MinimalTvApiClient>();
 builder.Services.AddSingleton<ISharingViewModel, SharingViewModel>();
-builder.Services.AddTransient<ISharingWidgetViewModel, SharingWidgetViewModel>();
 
 var app = builder.Build();
 

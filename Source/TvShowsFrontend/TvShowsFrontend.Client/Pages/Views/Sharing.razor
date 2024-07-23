@@ -2,10 +2,16 @@
 @using TvShowsFrontend.Client.Widgets.Views
 @using TvShowsFrontend.Client.Widgets.Models
 @using TvShowsFrontend.Client.Shared.Views
+@using TvShowsFrontend.Client.Features.Views
 
 @page "/sharing/{Id:int}"
 @inject ISharingViewModel ViewModel
-@inject ILogger<Sharing> Logger
+
+@if (ViewModel.MessengerMetaHeaders != null)
+{
+<MessengerMetaHeaders ViewModel="@ViewModel.MessengerMetaHeaders" />
+}
+
 
 <div class="page lime-background">
     <PhantomHeader/>

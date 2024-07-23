@@ -14,6 +14,5 @@ builder.Logging.SetMinimumLevel(LogLevel.Debug);
 builder.Services.AddTransient<HttpClient>();
 builder.Services.AddSingleton<MinimalTvApiClient>();
 builder.Services.AddSingleton<ISharingViewModel, SharingViewModel>();
-builder.Services.AddTransient<ISharingWidgetViewModel, SharingWidgetViewModel>();
 
 await builder.Build().RunAsync();

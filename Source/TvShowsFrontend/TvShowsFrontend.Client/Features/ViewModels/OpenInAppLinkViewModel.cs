@@ -8,6 +8,15 @@ public class OpenInAppLinkViewModel (
     public DateTimeOffset Time { get; } = time;
     public int ChannelId { get; } = channelId;
     public string Message { get; }= message;
-    public string Url => "limetv://app.show?time={Time}&id={ChannelId}";
+    public string Url => 
+        $"limetv://app.show" +
+            $"?time={
+                Time
+                .ToUniversalTime()
+            .       ToUnixTimeSeconds()
+                }" +
+            $"&id={
+                ChannelId
+            }";
 
 }

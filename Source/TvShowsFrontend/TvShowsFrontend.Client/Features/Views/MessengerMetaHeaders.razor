@@ -1,0 +1,13 @@
+﻿@using TvShowsFrontend.Client.Features.ViewModels
+
+<HeadContent>
+    <meta property="og:title" content="@ViewModel.Title">
+    <meta property="og:site_name" content="@ViewModel.SiteName">
+    <meta property="og:description" content="@ViewModel.Description">
+    <meta property="og:image" content="@ViewModel.Image">
+</HeadContent>
+
+@code {
+    [Parameter]
+    public required MessengerMetaHeadersViewModel ViewModel { get; init; }
+}

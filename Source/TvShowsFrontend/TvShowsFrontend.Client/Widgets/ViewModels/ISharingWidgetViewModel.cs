@@ -14,11 +14,10 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
         string OpenInAppUrl { get; }
         string ChannelDescription { get; }
         SharingWidgetTab CurrentTab { get; }
-        ReleasesListViewModel? Releases { get; }
-        ViewLinksViewModel? ViewLinks { get; }
+        ReleasesListViewModel Releases { get; }
+        ViewLinksViewModel ViewLinks { get; }
 
         Action<MouseEventArgs> SelectTvProgramTab { get; }
         Action<MouseEventArgs> SelectViewLinksTab { get; }
-        Task InitializeAsync(SharingParameters parameters);
     }
 }
