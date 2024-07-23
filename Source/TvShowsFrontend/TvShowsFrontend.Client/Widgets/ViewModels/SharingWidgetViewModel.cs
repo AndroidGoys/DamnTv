@@ -18,9 +18,8 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
         private readonly ILogger _logger;
         public SharingWidgetViewModel(
             ChannelDetails channelDetails, 
-            TvReleases channelReleases, 
-            DateTimeOffset timeStart,  
-            SharingParameters parameters,
+            TvReleases channelReleases,
+            NormalizedSharingParameters parameters,
             ILogger<SharingWidgetViewModel> logger
         )
         {
@@ -32,7 +31,7 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
             _title = $"{channelDetails.Name}";
             _channelImageUrl = channelDetails.ImageUrl ?? String.Empty;
             _channelDescription = channelDetails.Description ?? String.Empty;
-            OpenInAppLinkViewModel openInAppLink = new(parameters.ChannelId, timeStart);
+            OpenInAppLinkViewModel openInAppLink = new(parameters.ChannelId, parameters.TimeStart);
 
             _releases = new(channelReleases, openInAppLink);
             _viewLinks = new(channelDetails.ViewUrls, openInAppLink);

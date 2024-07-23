@@ -15,10 +15,9 @@ public class SharingViewModel(
     IServiceProvider services
 ) : BaseViewModel, ISharingViewModel
 {
-    private readonly int _defaultShowsLimit = 4;
-    private readonly IServiceProvider _services = services;
-    private readonly ILogger _logger = logger;
-    private readonly MinimalTvApiClient _apiClient = apiClient;
+    protected readonly IServiceProvider Services = services;
+    protected readonly ILogger Logger = logger;
+    protected readonly MinimalTvApiClient ApiClient = apiClient;
 
     private ISharingWidgetViewModel? _sharingWidget = null;
     public ISharingWidgetViewModel? SharingWidget {
@@ -46,39 +45,23 @@ public class SharingViewModel(
         set => SetProperty(ref _messengerMetaHeaders, value); 
     }
 
-    public async Task InitializeAsync(SharingParameters parameters) 
+    public virtual async Task InitializeAsync(SharingParameters parameters) 
     {
         try
         {
-            int limit = (parameters.Limit.HasValue) ? parameters.Limit.Value : _defaultShowsLimit;
+            NormalizedSharingParameters normalizedParametrs = parameters.Normalize();
 
-            TimeSpan timeZoneOffset;
-            if (parameters.TimeZone.HasValue)
-                timeZoneOffset = TimeSpan.FromHours(parameters.TimeZone.Value);
-            else
-                timeZoneOffset = TimeSpan.Zero;
-
-            DateTimeOffset timeStart = DateTimeOffset.FromUnixTimeSeconds(
-                parameters.TimeStart.GetValueOrDefault()
-            );
-
-
-            timeStart = new(
-                timeStart.DateTime + timeZoneOffset,
-                timeZoneOffset
-            );
-
-            Task<ChannelDetails> getDetailsTask = _apiClient.GetChannelDetailsAsync(parameters.ChannelId);
-            Task<TvReleases> getReleasesTask = _apiClient.GetChannelReleasesAsync(
+            Task<ChannelDetails> getDetailsTask = ApiClient.GetChannelDetailsAsync(parameters.ChannelId);
+            Task<TvReleases> getReleasesTask = ApiClient.GetChannelReleasesAsync(
                 parameters.ChannelId,
-                limit,
-                timeStart
+                normalizedParametrs.Limit,
+                normalizedParametrs.TimeStart
             );
 
             ChannelDetails channelDetails = await getDetailsTask;
             TvReleases channelReleases = await getReleasesTask;
 
-            ILogger<SharingWidgetViewModel> sharingLogger = _services
+            ILogger<SharingWidgetViewModel> sharingLogger = Services
                 .GetRequiredService<ILogger<SharingWidgetViewModel>>();
 
             TvChannelRelease? firstRelease = channelReleases.Releases.FirstOrDefault();
@@ -90,12 +73,17 @@ public class SharingViewModel(
                 channelDetails.ImageUrl
             );
 
-            _sharingWidget = new SharingWidgetViewModel(channelDetails, channelReleases, timeStart, parameters, sharingLogger);
+            _sharingWidget = new SharingWidgetViewModel(
+                channelDetails, 
+                channelReleases, 
+                normalizedParametrs, 
+                sharingLogger
+            );
         }
         catch (Exception ex) 
         {
             IsNotFound = true;
-            _logger.LogError(ex, "SharingWidgetInitializing error");
+            Logger.LogError(ex, "SharingWidgetInitializing error");
         }
         finally
         {

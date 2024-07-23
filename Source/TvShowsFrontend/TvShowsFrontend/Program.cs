@@ -6,6 +6,7 @@ using TvShowsFrontend.Client.Pages;
 using TvShowsFrontend.Client.Pages.ViewModels;
 using TvShowsFrontend.Client.Widgets.ViewModels;
 using TvShowsFrontend.Components;
+using TvShowsFrontend.Components.Pages.ViewModels;
 
 
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
@@ -20,7 +21,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<MinimalTvApiClient>();
-builder.Services.AddSingleton<ISharingViewModel, SharingViewModel>();
+builder.Services.AddSingleton<ISharingViewModel, SharingServerViewModel>();
 
 var app = builder.Build();
 
