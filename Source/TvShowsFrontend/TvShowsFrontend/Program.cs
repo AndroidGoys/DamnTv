@@ -20,7 +20,7 @@ builder.Services.AddHttpClient();
 
 
 builder.Services.AddSingleton<MinimalTvApiClient>();
-builder.Services.AddSingleton<ISharingViewModel, SharingServerViewModel>();
+builder.Services.AddTransient<ISharingViewModel, SharingServerViewModel>();
 
 var app = builder.Build();
 
