@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata;
+using System.Security.Cryptography;
 
 using Microsoft.AspNetCore.Components;
 
@@ -6,6 +7,7 @@ using TvApi;
 using TvApi.Entities;
 
 using TvShowsFrontend.Client.Features.ViewModels;
+using TvShowsFrontend.Client.Pages.Models;
 using TvShowsFrontend.Client.Shared.ViewModels;
 using TvShowsFrontend.Client.Shared.Views;
 using TvShowsFrontend.Client.Widgets.Models;
@@ -50,10 +52,11 @@ public class SharingViewModel(
         protected set => SetProperty(ref _messengerMetaHeaders, value); 
     }
 
-    public virtual async Task InitializeAsync(SharingParameters parameters) 
+    public virtual async Task<SharingPersistingState?> InitializeAsync(SharingParameters parameters) 
     {
         try
         {
+            Logger.LogDebug("Новое состояние");
             NormalizedSharingParameters normalizedParameters = parameters.Normalize();
 
             Task<ChannelDetails> getDetailsTask = ApiClient.GetChannelDetailsAsync(parameters.ChannelId);
@@ -63,47 +66,78 @@ public class SharingViewModel(
                 normalizedParameters.TimeStart
             );
 
-            ChannelDetails channelDetails = await getDetailsTask;
-            TvReleases channelReleases = await getReleasesTask;
+            ChannelDetails details = await getDetailsTask;
+            TvReleases releases = await getReleasesTask;
 
+            InitializeTree(parameters, details, releases);
 
-            TvChannelRelease? firstRelease = channelReleases.Releases.FirstOrDefault();
-
-            string title = "Расписание не найдено";
-            if (firstRelease != null)
-            {
-                DateTimeOffset timeStart = firstRelease.TimeStart;
-                DateTimeOffset timeStop = firstRelease.TimeStop;
-                title = $"{firstRelease.ShowName} " +
-                    $"({timeStart.Hour:d2}:{timeStart.Minute:d2} - " +
-                    $"{timeStop.Hour:d2}:{timeStop.Minute:d2})";
-            }
-
-            _messengerMetaHeaders = new(
-                channelDetails.Name,
-                title,
-                firstRelease?.Description,
-                CreatePreviewLink(parameters)
-            );
-
-            ILogger<SharingWidgetViewModel> sharingLogger = Services
-                .GetRequiredService<ILogger<SharingWidgetViewModel>>();
-            _sharingWidget = new SharingWidgetViewModel(
-                channelDetails, 
-                channelReleases, 
-                normalizedParameters, 
-                sharingLogger
-            );
+            return new(details, releases);
         }
         catch (Exception ex) 
         {
             IsNotFound = true;
             Logger.LogError(ex, "SharingWidgetInitializing error");
+            return new(null, null);
         }
         finally
         {
             IsInitialized = true;
         }
+    }
+
+    public virtual Task InitializeAsync(SharingParameters parameters, SharingPersistingState persistingState)
+    {
+        try
+        {
+            Logger.LogDebug("восстановление состояния");
+            ChannelDetails? channelDetails = persistingState.ChannelDetails;
+            TvReleases? channelReleases = persistingState.ChannelReleases;
+
+            InitializeTree(
+                parameters,
+                channelDetails,
+                channelReleases
+            );
+            return Task.CompletedTask;
+        }
+        finally 
+        {
+            IsInitialized = true;
+        }
+    }
+
+    private void InitializeTree(
+        SharingParameters parameters,
+        ChannelDetails channelDetails, 
+        TvReleases channelReleases
+    ) {
+        TvChannelRelease? firstRelease = channelReleases.Releases.FirstOrDefault();
+
+        string title = "Расписание не найдено";
+        if (firstRelease != null)
+        {
+            DateTimeOffset timeStart = firstRelease.TimeStart;
+            DateTimeOffset timeStop = firstRelease.TimeStop;
+            title = $"{firstRelease.ShowName} " +
+                $"({timeStart.Hour:d2}:{timeStart.Minute:d2} - " +
+                $"{timeStop.Hour:d2}:{timeStop.Minute:d2})";
+        }
+
+        _messengerMetaHeaders = new(
+            channelDetails.Name,
+            title,
+        firstRelease?.Description,
+            CreatePreviewLink(parameters)
+        );
+
+        ILogger<SharingWidgetViewModel> sharingLogger = Services
+            .GetRequiredService<ILogger<SharingWidgetViewModel>>();
+        _sharingWidget = new SharingWidgetViewModel(
+            channelDetails,
+            channelReleases,
+            parameters.Normalize(),
+            sharingLogger
+        );
     }
 
     private static string CreatePreviewLink(SharingParameters parameters) 

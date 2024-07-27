@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0-preview.6.24328.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Pages\ViewModels\" />
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,6 @@ using System.Globalization;
 using TvApi;
 
 using TvShowsFrontend.Client.Pages.ViewModels;
-using TvShowsFrontend.Components.Pages.ViewModels;
 using TvShowsFrontend.Controllers;
 using TvShowsFrontend.Components;
 
@@ -13,14 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
+    //.AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddHttpClient();
 
 
 builder.Services.AddSingleton<MinimalTvApiClient>();
-builder.Services.AddTransient<ISharingViewModel, SharingServerViewModel>();
+builder.Services.AddTransient<ISharingViewModel, SharingViewModel>();
 
 var app = builder.Build();
 
@@ -46,7 +45,7 @@ app.UseAntiforgery();
 app.UseStaticFiles();
 
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
+    //.AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(TvShowsFrontend.Client._Imports).Assembly);
 

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,7 +12,7 @@
     <ImportMap />
     
     <link rel="icon" type="image/png" href="favicon.png" />
-    <HeadOutlet @rendermode="new InteractiveWebAssemblyRenderMode(true)" />
+    <HeadOutlet/>
 
     <!-- Теги с директивами "не кешировать" для браузера и "узлов" веб-сети -->
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
@@ -21,7 +22,7 @@
 </head>
 
 <body>
-    <Routes @rendermode="new InteractiveWebAssemblyRenderMode(true)" />
+    <Routes @rendermode="InteractiveWebAssembly"/>
     <script src="_framework/blazor.web.js"></script>
 </body>
 

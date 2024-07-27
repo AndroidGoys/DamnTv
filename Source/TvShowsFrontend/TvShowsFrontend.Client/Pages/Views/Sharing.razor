@@ -3,9 +3,13 @@
 @using TvShowsFrontend.Client.Widgets.Models
 @using TvShowsFrontend.Client.Shared.Views
 @using TvShowsFrontend.Client.Features.Views
+@using TvShowsFrontend.Client.Pages.Models
 
 @page "/sharing/{Id:int}"
 @inject ISharingViewModel ViewModel
+@inject PersistentComponentState ApplicationState
+@implements IDisposable
+@inject ILogger<Sharing> Logger
 
 @if (ViewModel.MessengerMetaHeaders != null)
 {
@@ -13,7 +17,7 @@
 }
 
 
-<div class="page lime-background">
+<div InteractiveServerRenderMode class="page lime-background">
     <PhantomHeader/>
     @if (ViewModel.IsInitialized)
     {
@@ -46,11 +50,41 @@
     [SupplyParameterFromQuery(Name="limit")]
     public int? Limit { get; init; }
 
+    private PersistingComponentStateSubscription persistingSubscription;
+    private readonly string persistingStateKey = $"{nameof(SharingPersistingState)}";
+    private SharingPersistingState? _persistingState = null;
+
+    
     protected override async Task OnInitializedAsync()
     {
+        persistingSubscription = ApplicationState.RegisterOnPersisting(PersistStateAsync);
+   
         SharingParameters parameters = new(Id, Limit, TimeStart, TimeZone);
-        await ViewModel.InitializeAsync(parameters);
+
+        if (ApplicationState
+            .TryTakeFromJson<SharingPersistingState>(
+                persistingStateKey,
+                out SharingPersistingState? persistingState)
+        ){   
+            await ViewModel.InitializeAsync(parameters, persistingState!);
+        }
+        else
+        {
+            _persistingState = await ViewModel.InitializeAsync(parameters);
+        }
 
         await base.OnInitializedAsync();
+    }
+
+    private Task PersistStateAsync()
+    {
+        if (_persistingState != null)
+            ApplicationState.PersistAsJson(persistingStateKey, _persistingState);
+        return Task.CompletedTask;
+    }
+
+    void IDisposable.Dispose()
+    {
+        persistingSubscription.Dispose();   
     }
 }
