@@ -21,7 +21,6 @@ public class SharingViewModel(
     IServiceProvider services
 ) : BaseViewModel, ISharingViewModel
 {
-    protected readonly NavigationManager NavigationManager;
     protected readonly IServiceProvider Services = services;
     protected readonly ILogger Logger = logger;
     protected readonly MinimalTvApiClient ApiClient = apiClient;
@@ -108,11 +107,17 @@ public class SharingViewModel(
 
     private void InitializeTree(
         SharingParameters parameters,
-        ChannelDetails channelDetails, 
-        TvReleases channelReleases
+        ChannelDetails? channelDetails, 
+        TvReleases? channelReleases
     ) {
-        TvChannelRelease? firstRelease = channelReleases.Releases.FirstOrDefault();
 
+        if (channelDetails == null)
+        {
+            IsNotFound = true;
+            return;
+        }
+
+        TvChannelRelease? firstRelease = channelReleases?.Releases?.FirstOrDefault();
         string title = "Расписание не найдено";
         if (firstRelease != null)
         {
@@ -130,13 +135,10 @@ public class SharingViewModel(
             CreatePreviewLink(parameters)
         );
 
-        ILogger<SharingWidgetViewModel> sharingLogger = Services
-            .GetRequiredService<ILogger<SharingWidgetViewModel>>();
         _sharingWidget = new SharingWidgetViewModel(
             channelDetails,
             channelReleases,
-            parameters.Normalize(),
-            sharingLogger
+            parameters.Normalize()
         );
     }
 

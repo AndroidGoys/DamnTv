@@ -15,19 +15,12 @@ namespace TvShowsFrontend.Client.Widgets.ViewModels
 {
     public class SharingWidgetViewModel: BaseViewModel, ISharingWidgetViewModel
     {
-        private readonly ILogger _logger;
         public SharingWidgetViewModel(
             ChannelDetails channelDetails, 
-            TvReleases channelReleases,
-            NormalizedSharingParameters parameters,
-            ILogger<SharingWidgetViewModel> logger
+            TvReleases? channelReleases,
+            NormalizedSharingParameters parameters
         )
         {
-            _logger = logger;
-            _title = String.Empty;
-            _channelImageUrl = String.Empty;
-            _channelDescription = String.Empty;
-
             _title = $"{channelDetails.Name}";
             _channelImageUrl = channelDetails.ImageUrl ?? String.Empty;
             _channelDescription = channelDetails.Description ?? String.Empty;

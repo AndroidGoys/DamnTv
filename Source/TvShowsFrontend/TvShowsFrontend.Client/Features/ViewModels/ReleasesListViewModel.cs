@@ -21,7 +21,7 @@ public class ReleasesListViewModel : BaseViewModel
         Releases = new(
             releases?.Releases
             ?.Select(release => new ReleaseViewModel(release))
-            ?.ToList() ?? new()
+            ?.ToList() ?? []
         );
     }
 
