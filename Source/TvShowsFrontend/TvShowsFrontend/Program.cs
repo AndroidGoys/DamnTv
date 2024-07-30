@@ -3,10 +3,9 @@ using System.Globalization;
 using TvApi;
 
 using TvShowsFrontend.Client.Pages.ViewModels;
-using TvShowsFrontend.Controllers;
 using TvShowsFrontend.Components;
-
-CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+using TvShowsFrontend.PreviewDesign.Models;
+using TvShowsFrontend.PreviewDesign.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +19,11 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<MinimalTvApiClient>();
 builder.Services.AddTransient<ISharingViewModel, SharingViewModel>();
+builder.Services.AddTransient<IPreviewBuilder, SkiaPreviewBuilder>();
 
 var app = builder.Build();
 
-app.MapPreviewDistributor();
+app.MapPreviewsDistribution();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
