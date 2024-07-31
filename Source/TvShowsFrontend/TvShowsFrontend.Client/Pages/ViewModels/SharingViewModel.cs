@@ -124,7 +124,7 @@ public class SharingViewModel(
         _messengerMetaHeaders = new(
             channelDetails.Name,
             title,
-        firstRelease?.Description,
+            firstRelease?.Description,
             CreatePreviewLink(parameters)
         );
 
@@ -139,6 +139,7 @@ public class SharingViewModel(
     {
 
         string previewUrl = $"/sharing/{parameters.ChannelId}/preview";
+
         List<string> urlParams = new(2);
         if (parameters.TimeStart.HasValue)
             urlParams.Add($"time-start={parameters.TimeStart}");
