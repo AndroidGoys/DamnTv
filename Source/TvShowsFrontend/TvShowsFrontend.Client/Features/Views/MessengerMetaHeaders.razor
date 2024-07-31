@@ -4,12 +4,22 @@
     <meta property="og:title" content="@ViewModel.Title">
     <meta property="og:site_name" content="@ViewModel.SiteName">
     <meta property="og:description" content="@ViewModel.Description">
-    <meta property="og:image" content="@ViewModel.Image">
-    <meta property="og:image:width" content="@ViewModel.ImageWidth">
-    <meta property="og:image:height" content="@ViewModel.ImageHeight">
+    @if (ViewModel.Image != null)
+    {
+        <meta property="og:image:width" content="@ViewModel.ImageWidth">
+        <meta property="og:image:height" content="@ViewModel.ImageHeight"> 
+        @ImageMetaTags
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="@ViewModel.Title" />
+        <meta name="twitter:description" content="@ViewModel.SiteName &#10;&#13; @ViewModel.Description" />
+    }
+    <meta property="og:type" content="object">
 </HeadContent>
 
 @code {
     [Parameter]
     public required MessengerMetaHeadersViewModel ViewModel { get; init; }
+    private MarkupString ImageMetaTags => (MarkupString)
+        ($"<meta property=\"og:image\" content=\"{ViewModel.Image}\">" +
+        $"<meta name=\"twitter:image:src\" content=\"{@ViewModel.Image}\"/>");
 }
