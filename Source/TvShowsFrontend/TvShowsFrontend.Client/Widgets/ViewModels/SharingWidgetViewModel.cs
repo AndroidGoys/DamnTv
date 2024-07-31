@@ -9,7 +9,6 @@ using TvApi.Models;
 using TvShowsFrontend.Client.Features.ViewModels;
 using TvShowsFrontend.Client.Shared.ViewModels;
 using TvShowsFrontend.Client.Widgets.Models;
-using TvShowsFrontend.Client.Widgets.Views;
 
 namespace TvShowsFrontend.Client.Widgets.ViewModels
 {

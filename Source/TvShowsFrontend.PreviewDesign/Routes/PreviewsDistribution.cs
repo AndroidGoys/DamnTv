@@ -21,7 +21,7 @@ namespace TvShowsFrontend.PreviewDesign.Routes
             [FromServices] HttpClient httpClient,
             [FromQuery] float scale = 1,
             [FromQuery(Name="time-start")] long timeStart = 0,
-            [FromQuery(Name="time-zont")] float timeZone = 0
+            [FromQuery(Name="time-zone")] float timeZone = 0
         )
         {
             DateTimeOffset targetTime = DateTimeOffset.FromUnixTimeSeconds(timeStart);
