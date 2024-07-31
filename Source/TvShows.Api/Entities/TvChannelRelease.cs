@@ -1,4 +1,6 @@
-﻿using TvApi.Models;
+﻿using Microsoft.VisualBasic;
+
+using TvApi.Models;
 
 namespace TvApi.Entities;
 
@@ -29,5 +31,13 @@ public record TvChannelRelease
             TimeStart = new(timeStart.DateTime + timeZone, timeZone),
             TimeStop = new(timeStop.DateTime + timeZone, timeZone)
         };
+    }
+
+    public override string ToString()
+    {
+        return 
+            $"({TimeStart.Hour:d2}:{TimeStart.Minute:d2} - " +
+            $"{TimeStop.Hour:d2}:{TimeStop.Minute:d2})" +
+            $" {ShowName}";
     }
 }

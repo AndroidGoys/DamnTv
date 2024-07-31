@@ -1,9 +1,4 @@
-﻿using System.Reflection.Metadata;
-using System.Security.Cryptography;
-
-using Microsoft.AspNetCore.Components;
-
-using TvApi;
+﻿using TvApi;
 using TvApi.Entities;
 
 using TvShowsFrontend.Client.Features.ViewModels;
@@ -123,9 +118,7 @@ public class SharingViewModel(
         {
             DateTimeOffset timeStart = firstRelease.TimeStart;
             DateTimeOffset timeStop = firstRelease.TimeStop;
-            title = $"{firstRelease.ShowName} " +
-                $"({timeStart.Hour:d2}:{timeStart.Minute:d2} - " +
-                $"{timeStop.Hour:d2}:{timeStop.Minute:d2})";
+            title = firstRelease.ToString();
         }
 
         _messengerMetaHeaders = new(

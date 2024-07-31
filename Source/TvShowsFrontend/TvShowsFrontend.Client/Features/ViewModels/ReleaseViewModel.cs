@@ -20,9 +20,7 @@ public class ReleaseViewModel
         TimeToStart = TimeStart - now;
         Duration = TimeStop - TimeStart;
 
-        Title = $"{_release.ShowName} " +
-            $"({TimeStart.Hour:d2}:{TimeStart.Minute:d2} - " +
-            $"{TimeStop.Hour:d2}:{TimeStop.Minute:d2})";
+        Title = release.ToString();
         ProgressTimeLabel = GetProgressLabel();
         Description = _release.Description ?? string.Empty;
         IsStarted = TimeToStart < TimeSpan.Zero;

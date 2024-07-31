@@ -15,30 +15,62 @@ namespace TvShowsFrontend.PreviewDesign.Routes
 
 
         private static async Task<IResult> GetPreview(
-            [FromRoute] int id, 
+            [FromRoute] int id,
             [FromServices] MinimalTvApiClient apiClient,
             [FromServices] IPreviewBuilder previewBuilder,
-            [FromServices] HttpClient httpClient
+            [FromServices] HttpClient httpClient,
+            [FromQuery] float scale = 1,
+            [FromQuery(Name="time-start")] long timeStart = 0,
+            [FromQuery(Name="time-zont")] float timeZone = 0
         )
         {
+            DateTimeOffset targetTime = DateTimeOffset.FromUnixTimeSeconds(timeStart);
+            TimeSpan timeZoneOffset = TimeSpan.FromHours(timeZone);
+            targetTime = new DateTimeOffset(
+                targetTime.DateTime + timeZoneOffset,
+                timeZoneOffset
+            );
+
             ChannelDetails channel = await apiClient.GetChannelDetailsAsync(id);
-            TvReleases releases = await apiClient.GetChannelReleasesAsync(id);
-            TvChannelRelease release = releases.Releases.First();
+            TvReleases releases = await apiClient.GetChannelReleasesAsync(id, limit: 1, timeStart: targetTime);
+
+            IPreviewBuilder preview = previewBuilder
+               .WithScaling(scale)
+               .WithChannelName(channel.Name);
+
+            try
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(channel.ImageUrl);
+                Stream channelImageStream = await response.Content.ReadAsStreamAsync();
+                
+                if (response.StatusCode < System.Net.HttpStatusCode.BadRequest)
+                    preview.WithChannelImage(channelImageStream); 
+            }
+            catch (Exception ex) { }
+            
+            if (releases.Releases.Any())
+            { 
+                TvChannelRelease release = releases.Releases.First();
 
 
-            HttpResponseMessage response = await httpClient.GetAsync(channel.ImageUrl);
-            Stream channelImageStream = await response.Content.ReadAsStreamAsync();
+                scale = Math.Max(scale, 3);
 
-            Stream preview = previewBuilder
-               .WithChannelName(channel.Name)
-               .WithChannelImage(channelImageStream)
-               .WithShowName(release.ShowName)
-               .WithProgress(0.5f)
-               .WithShowDescription(release.Description)
-               .Build();
+                TimeSpan currentTime = DateTimeOffset.Now - release.TimeStart;
+                TimeSpan duration = release.TimeStop - release.TimeStart;
+
+                double progress = (currentTime / duration);
+                
+                preview
+                   .WithShowName(release.ToString().ToUpperInvariant())
+                   .WithProgress((float)progress)
+                   .WithShowAssessment(release.ShowAssessment);
+            
+                    if (release.Description != null)
+                        preview.WithShowDescription(release.Description);
+            }
 
 
-            return Results.File(preview, "image/png");
+            return Results.File(preview.Build(), "image/png");
         }
     }
 }
