@@ -3,6 +3,7 @@
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Net.NetworkInformation;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -66,11 +67,11 @@ public class SkiaPreviewBuilder : IPreviewBuilder
             channelImagePosition.Right + ToScale(25),
             padding + openSansBlodFont.Size/2 + (int)(channelImageSize / 2.5)
         );
-
+        float channelNameWidth = width - channelNamePosition.X - padding;
         if (_channelName != null)
         {
             paint.Color = new SKColor(0,0,0, 255);
-            canvas.DrawText(_channelName, channelNamePosition, SKTextAlign.Left, openSansBlodFont, paint);
+            DrawTextLine(canvas, _channelName, channelNamePosition, channelNameWidth, openSansBlodFont, paint);
         }
         #endregion
 
@@ -129,24 +130,11 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         if (_showName != null)
         {
             paint.Color = new(0xFF_00_00_00);
-            int breakLength = openSansBlodFont.BreakText(_showName, showNameWidth, paint);
-            string showName;
-            if (breakLength < _showName.Length)
-            {
-                breakLength = Math.Max(0, breakLength - 3);
-                showName = _showName[breakLength] + "...";
-            }
-            else 
-            {
-                showName = _showName;
-            }
-
-            canvas.DrawText(showName, showNamePosition, SKTextAlign.Left, openSansBlodFont, paint);
+            DrawTextLine(canvas, _showName, showNamePosition, showNameWidth, openSansBlodFont, paint);
         }
         #endregion
 
         #region DrawShowDescription
-
 
         using SKFontStyle lightFontStyle = new(SKFontStyleWeight.Light, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
         using SKTypeface openSansLightTypeface = SKTypeface.FromFamilyName("Open Sans", lightFontStyle);
@@ -192,6 +180,25 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         #endregion
 
         return bitmap.Encode(SKEncodedImageFormat.Png, 1).AsStream();
+    }
+
+    private void DrawTextLine(
+        SKCanvas canvas, 
+        string text,
+        SKPoint position,
+        float width,
+        SKFont font,
+        SKPaint paint) 
+    {
+        int breakLength = font.BreakText(text, width, paint);
+        
+        if (breakLength < text.Length)
+        {
+            breakLength = Math.Max(0, breakLength - 3);
+            text = text[0..breakLength] + "...";
+        }
+
+        canvas.DrawText(text, position, SKTextAlign.Left, font, paint);
     }
 
     private void DrawDescription(
