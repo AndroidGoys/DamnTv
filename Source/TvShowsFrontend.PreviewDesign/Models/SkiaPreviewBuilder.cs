@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 using SkiaSharp;
@@ -60,10 +61,10 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         #endregion
 
         #region DrawChannelName
-        openSansBlodFont.Size = ToScale(80);
+        openSansBlodFont.Size = ToScale(80.0f);
         SKPoint channelNamePosition = new(
             channelImagePosition.Right + ToScale(25),
-            padding + openSansBlodFont.Size
+            padding + openSansBlodFont.Size/2 + (int)(channelImageSize / 2.5)
         );
 
         if (_channelName != null)
@@ -119,7 +120,7 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         #endregion
 
         #region DrawShowName
-        openSansBlodFont.Size = ToScale(40);
+        openSansBlodFont.Size = ToScale(40.0f);
         SKPoint showNamePosition = new SKPoint(
             showInfoContainerPosition.Left + ToScale(35.0f),
             showInfoContainerPosition.Top + ToScale(32.0f) + openSansBlodFont.Size
@@ -150,7 +151,7 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         using SKFontStyle lightFontStyle = new(SKFontStyleWeight.Light, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
         using SKTypeface openSansLightTypeface = SKTypeface.FromFamilyName("Open Sans", lightFontStyle);
         using SKFont openSansLightFont = new(openSansLightTypeface);
-        openSansLightFont.Size = 40;
+        openSansLightFont.Size = ToScale(40.0f);
         
         SKRect descriptionPosition = new(
             showInfoContainerPosition.Left + ToScale(35.0f),
