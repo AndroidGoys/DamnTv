@@ -1,0 +1,51 @@
+﻿@using Widgets.ViewModels
+@using Widgets.Models
+
+@using DamnTv.Frontend.Client.Features.Views;
+@using DamnTv.Frontend.Client.Shared.Views
+
+<div class=invite-box>
+    <div class="invite-box__about-channel">
+        <div class="about-channel__title__container">
+            <img class=about-channel__title__image src="@ViewModel.ChannelImageUrl" />
+            <h1 class=about-channel__title>@ViewModel.Title</h1>
+        </div>
+        <span class="about-channel__description">
+            @ViewModel.ChannelDescription
+        </span>
+    </div>
+
+    <nav class="tabs-nav">
+        <button class="@GetSelector(SharingWidgetTab.TvProgram)"
+                @onclick="@ViewModel.SelectTvProgramTab">
+            Расписание
+        </button>
+        <button class="@GetSelector(SharingWidgetTab.ViewLinks)"
+                @onclick="@ViewModel.SelectViewLinksTab">
+            Ссылки
+        </button>
+    </nav>
+    
+    @if(ViewModel.Releases != null && ViewModel.CurrentTab == SharingWidgetTab.TvProgram)
+    {
+        <ReleasesListView ViewModel="@ViewModel.Releases"/>
+    }
+    @if (ViewModel?.ViewLinks != null && ViewModel.CurrentTab == SharingWidgetTab.ViewLinks)
+    {
+        <ViewLinksView ViewModel="@ViewModel.ViewLinks" />
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public required ISharingWidgetViewModel ViewModel { get; init; }
+
+    private string GetSelector(SharingWidgetTab tab)
+    {
+        if (tab == ViewModel.CurrentTab)
+            return "tabs-nav__selected-selector";
+           
+        return "tabs-nav__selector";
+    }
+}

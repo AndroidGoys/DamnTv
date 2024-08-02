@@ -1,0 +1,30 @@
+﻿@using Features.ViewModels;
+@using DamnTv.Frontend.Client.Shared.Views;
+
+@if (ViewModel.Releases.Count == 0)
+{
+    <NotFound Message="@ViewModel.NotFoundMessage"/>
+}   
+else if (ViewModel.IsCollapsed )
+{
+    <div class="releases">
+        <ReleaseView ViewModel="ViewModel.Releases.First()"/>
+        <TextButton OnClick="@ViewModel.ChangeVisibility"> Развернуть </TextButton>
+    </div>
+}
+else
+{
+    <div class="releases">
+    @foreach(ReleaseViewModel release in ViewModel.Releases)
+    {
+        <ReleaseView ViewModel="@release"/>
+    }
+    <OpenInAppLink style="text-align: center" ViewModel="@ViewModel.OpenInAppLink" />
+    <TextButton OnClick="@ViewModel.ChangeVisibility"> Свернуть </TextButton>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public required ReleasesListViewModel ViewModel { get; init; }
+}

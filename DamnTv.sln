@@ -1,0 +1,61 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# 17
+VisualStudioVersion = 17.11.35111.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DamnTv.Frontend", "Source\DamnTv.Frontend\DamnTv.Frontend\DamnTv.Frontend.csproj", "{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DamnTv.Frontend.Client", "Source\DamnTv.Frontend\DamnTv.Frontend.Client\DamnTv.Frontend.Client.csproj", "{2A982697-4047-4CD9-991C-345163AD0311}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B354350F-55F9-489E-BA67-0B21FCD19DA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TelegramIntegration", "TelegramIntegration", "{CD43C757-74FA-45D5-8A65-EE5D028B0EB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{EFC2B96E-3E26-4C0E-9152-BC7AAB4ACB11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DamnTv.Api.Client", "Source\DamnTv.Api.Client\DamnTv.Api.Client.csproj", "{5AFEE799-69C7-48F2-9F6A-743D674F1641}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DamnTv.TgMiniApp", "Source\DamnTv.TgMiniApp\DamnTv.TgMiniApp.csproj", "{BD97351E-BF6D-4FD8-BE3F-DB1144C99B1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DamnTv.Frontend.PreviewDesign", "Source\DamnTv.Frontend.PreviewDesign\DamnTv.Frontend.PreviewDesign.csproj", "{2836D1C6-0029-471B-B6D4-00CA0B6D02FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A982697-4047-4CD9-991C-345163AD0311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A982697-4047-4CD9-991C-345163AD0311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A982697-4047-4CD9-991C-345163AD0311}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A982697-4047-4CD9-991C-345163AD0311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AFEE799-69C7-48F2-9F6A-743D674F1641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AFEE799-69C7-48F2-9F6A-743D674F1641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AFEE799-69C7-48F2-9F6A-743D674F1641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AFEE799-69C7-48F2-9F6A-743D674F1641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD97351E-BF6D-4FD8-BE3F-DB1144C99B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD97351E-BF6D-4FD8-BE3F-DB1144C99B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD97351E-BF6D-4FD8-BE3F-DB1144C99B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD97351E-BF6D-4FD8-BE3F-DB1144C99B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2836D1C6-0029-471B-B6D4-00CA0B6D02FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2836D1C6-0029-471B-B6D4-00CA0B6D02FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2836D1C6-0029-471B-B6D4-00CA0B6D02FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2836D1C6-0029-471B-B6D4-00CA0B6D02FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E80E6C2F-BE5A-46E4-BD96-D8F657722AA6} = {B354350F-55F9-489E-BA67-0B21FCD19DA4}
+		{2A982697-4047-4CD9-991C-345163AD0311} = {B354350F-55F9-489E-BA67-0B21FCD19DA4}
+		{5AFEE799-69C7-48F2-9F6A-743D674F1641} = {EFC2B96E-3E26-4C0E-9152-BC7AAB4ACB11}
+		{BD97351E-BF6D-4FD8-BE3F-DB1144C99B1E} = {CD43C757-74FA-45D5-8A65-EE5D028B0EB0}
+		{2836D1C6-0029-471B-B6D4-00CA0B6D02FF} = {B354350F-55F9-489E-BA67-0B21FCD19DA4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E210E724-9925-4F86-A53D-B5186D97EFE6}
+	EndGlobalSection
+EndGlobal

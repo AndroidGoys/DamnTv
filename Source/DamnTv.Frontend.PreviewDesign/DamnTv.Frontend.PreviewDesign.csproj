@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="3.0.0-preview.4.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.0.0-preview.4.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+	<ProjectReference Include="..\DamnTv.Api.Client\DamnTv.Api.Client.csproj" />	
+  </ItemGroup>
+
+
+</Project>

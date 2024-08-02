@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DamnTv.Api.Client\DamnTv.Api.Client.csproj" />
+    <ProjectReference Include="..\..\DamnTv.Frontend.PreviewDesign\DamnTv.Frontend.PreviewDesign.csproj" />
+    <ProjectReference Include="..\DamnTv.Frontend.Client\DamnTv.Frontend.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0-preview.6.24328.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Pages\ViewModels\" />
+  </ItemGroup>
+
+</Project>
