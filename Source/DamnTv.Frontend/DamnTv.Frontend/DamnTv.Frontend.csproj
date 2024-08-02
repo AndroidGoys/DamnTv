@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DamnTv.Api.Client\DamnTv.Api.Client.csproj" />
-    <ProjectReference Include="..\..\DamnTv.Frontend.PreviewDesign\DamnTv.Frontend.PreviewDesign.csproj" />
+    <ProjectReference Include="..\..\DamnTv.ServiceDefaults\DamnTv.ServiceDefaults.csproj" />
     <ProjectReference Include="..\DamnTv.Frontend.Client\DamnTv.Frontend.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0-preview.6.24328.4" />
   </ItemGroup>
