@@ -1,0 +1,25 @@
+services:
+  damntv.frontend:
+    image: ${DOCKER_REGISTRY-}damntv/frontend
+    ports:
+      - "5101:8080"
+    build:
+      context: .
+      dockerfile: Source/DamnTv.Frontend/DamnTv.Frontend/Dockerfile
+
+  damntv.frontend.previewdesign:
+    image: ${DOCKER_REGISTRY-}damntv/preview-design
+    ports:
+      - "5102:8080"
+    build:
+      context: .
+      dockerfile: Source/DamnTv.Frontend.PreviewDesign/Dockerfile
+
+
+  damntv.tgminiapp:
+    image: ${DOCKER_REGISTRY-}damntv/miniapp
+    ports:
+      - "5103:8080"
+    build:
+      context: .
+      dockerfile: Source/DamnTv.TgMiniApp/Dockerfile

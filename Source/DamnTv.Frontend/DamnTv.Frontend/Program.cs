@@ -6,8 +6,6 @@ using DamnTv.Frontend.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
-
 // Add services to the container.
 builder.Services.AddRazorComponents()
     //.AddInteractiveServerComponents()
@@ -43,6 +41,5 @@ app.MapRazorComponents<App>()
     //.AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(DamnTv.Frontend.Client._Imports).Assembly);
-app.MapDefaultEndpoints();
 
 app.Run();

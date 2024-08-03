@@ -33,6 +33,8 @@ namespace DamnTv.Frontend.PreviewDesign.Routes
             ChannelDetails channel = await apiClient.GetChannelDetailsAsync(id);
             TvReleases releases = await apiClient.GetChannelReleasesAsync(id, limit: 1, timeStart: targetTime);
 
+            scale = Math.Max(scale, 3);
+
             IPreviewBuilder preview = previewBuilder
                .WithScaling(scale)
                .WithChannelName(channel.Name);
@@ -45,14 +47,13 @@ namespace DamnTv.Frontend.PreviewDesign.Routes
                 if (response.StatusCode < System.Net.HttpStatusCode.BadRequest)
                     preview.WithChannelImage(channelImageStream);
             }
-            catch (Exception ex) { }
+            catch { }
 
             if (releases.Releases.Any())
             {
                 TvChannelRelease release = releases.Releases.First();
 
 
-                scale = Math.Max(scale, 3);
 
                 TimeSpan currentTime = DateTimeOffset.Now - release.TimeStart;
                 TimeSpan duration = release.TimeStop - release.TimeStart;

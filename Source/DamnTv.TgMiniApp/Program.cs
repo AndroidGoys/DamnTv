@@ -1,7 +1,5 @@
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -17,7 +15,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapDefaultEndpoints();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();

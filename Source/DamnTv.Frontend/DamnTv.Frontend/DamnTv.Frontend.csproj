@@ -5,13 +5,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<InvariantGlobalization>true</InvariantGlobalization>
+	<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+    <IsPublishable>true</IsPublishable>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\DamnTv.Api.Client\DamnTv.Api.Client.csproj" />
-    <ProjectReference Include="..\..\DamnTv.ServiceDefaults\DamnTv.ServiceDefaults.csproj" />
     <ProjectReference Include="..\DamnTv.Frontend.Client\DamnTv.Frontend.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0-preview.6.24328.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
   </ItemGroup>
 
   <ItemGroup>

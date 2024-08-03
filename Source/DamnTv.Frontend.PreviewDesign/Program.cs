@@ -4,8 +4,6 @@ using DamnTv.Frontend.PreviewDesign.Routes;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
-
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<MinimalTvApiClient>();
 builder.Services.AddTransient<IPreviewBuilder, SkiaPreviewBuilder>();

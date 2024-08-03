@@ -10,6 +10,7 @@ using DamnTv.Api.Client.Models;
 using Microsoft.Extensions.Logging;
 
 using DamnTv.Api.Client;
+using System.Text.Json.Serialization.Metadata;
 
 namespace DamnTv.Api.Client
 {
@@ -52,7 +53,7 @@ namespace DamnTv.Api.Client
                     message.StatusCode.ToString()
                 );
             }
-
+            JsonSerializerOptions options = new(_serializerOptions);
             return JsonSerializer.Deserialize<T>(
                 body,
                 _serializerOptions

@@ -6,9 +6,6 @@ using DamnTv.Frontend.Client.Shared.ViewModels;
 using DamnTv.Frontend.Client.Widgets.Models;
 using DamnTv.Frontend.Client.Widgets.ViewModels;
 
-using DamnTv.Frontend.Client.Shared.Views;
-using DamnTv.Frontend.Client.Widgets.ViewModels;
-
 namespace DamnTv.Frontend.Client.Pages.ViewModels;
 
 public class SharingViewModel(
@@ -122,8 +119,6 @@ public class SharingViewModel(
         string title = "Расписание не найдено";
         if (firstRelease != null)
         {
-            DateTimeOffset timeStart = firstRelease.TimeStart;
-            DateTimeOffset timeStop = firstRelease.TimeStop;
             title = firstRelease.ToString();
         }
 

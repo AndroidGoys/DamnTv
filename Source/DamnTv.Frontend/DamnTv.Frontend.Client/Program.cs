@@ -1,12 +1,7 @@
-using System.Globalization;
-
 using DamnTv.Api.Client;
 using DamnTv.Frontend.Client.Pages.ViewModels;
 
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Logging;
-
-using DamnTv.Frontend.Client.Widgets.ViewModels;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
