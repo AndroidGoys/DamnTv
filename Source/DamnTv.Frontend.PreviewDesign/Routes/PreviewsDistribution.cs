@@ -14,10 +14,10 @@ namespace DamnTv.Frontend.PreviewDesign.Routes
 
 
         private static async Task<IResult> GetPreview(
-            [FromRoute] int id,
             [FromServices] MinimalTvApiClient apiClient,
             [FromServices] IPreviewBuilder previewBuilder,
             [FromServices] HttpClient httpClient,
+            [FromRoute] int id,
             [FromQuery] float scale = 1,
             [FromQuery(Name = "time-start")] long timeStart = 0,
             [FromQuery(Name = "time-zone")] float timeZone = 0

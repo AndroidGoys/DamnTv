@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
+	<LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
 	<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
 	<IsPublishable>true</IsPublishable>
 	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -15,12 +16,24 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="SkiaSharp" Version="3.0.0-preview.4.1" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.0.0-preview.4.1" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.0.0-preview.4.1" />
   </ItemGroup>
   
   <ItemGroup>
 	<ProjectReference Include="..\DamnTv.Api.Client\DamnTv.Api.Client.csproj" />	
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Assets\Fonts\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Assets\Fonts\OpenSans\OpenSans-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Fonts\OpenSans\OpenSans-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

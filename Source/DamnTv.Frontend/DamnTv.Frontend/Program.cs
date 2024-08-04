@@ -3,6 +3,8 @@ using System.Globalization;
 using DamnTv.Api.Client;
 using DamnTv.Frontend.Client.Pages.ViewModels;
 using DamnTv.Frontend.Components;
+using DamnTv.Frontend.PreviewDesign;
+using DamnTv.Frontend.PreviewDesign.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddRazorComponents()
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<MinimalTvApiClient>();
 builder.Services.AddTransient<ISharingViewModel, SharingViewModel>();
+
+//Добавляет зависимости для PreviewDistribution
+builder.UseSkiaPreviewDesigner();
 
 var app = builder.Build();
 
@@ -34,12 +39,15 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
-// app.MapStaticAssets(); спасибо дяд за кеширование
-app.UseStaticFiles();
+app.MapStaticAssets(); //спасибо дяд за кеширование
+//app.UseStaticFiles();
 
 app.MapRazorComponents<App>()
     //.AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(DamnTv.Frontend.Client._Imports).Assembly);
+
+
+app.MapPreviewsDistribution();
 
 app.Run();

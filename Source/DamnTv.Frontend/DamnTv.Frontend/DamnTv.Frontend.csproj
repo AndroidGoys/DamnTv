@@ -2,18 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
+	<LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
+	<LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
+	<LangVersion>preview</LangVersion>
 	<InvariantGlobalization>true</InvariantGlobalization>
+	<LangVersion>preview</LangVersion>
 	<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+	<LangVersion>preview</LangVersion>
     <IsPublishable>true</IsPublishable>
+	<LangVersion>preview</LangVersion>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<LangVersion>preview</LangVersion>
     <DockerfileContext>..\..\..</DockerfileContext>
+	<LangVersion>preview</LangVersion>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\DamnTv.Api.Client\DamnTv.Api.Client.csproj" />
+    <ProjectReference Include="..\..\DamnTv.Frontend.PreviewDesign\DamnTv.Frontend.PreviewDesign.csproj" />
     <ProjectReference Include="..\DamnTv.Frontend.Client\DamnTv.Frontend.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0-preview.6.24328.4" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />

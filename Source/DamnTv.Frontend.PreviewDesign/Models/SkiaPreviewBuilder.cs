@@ -2,7 +2,7 @@ using SkiaSharp;
 
 namespace DamnTv.Frontend.PreviewDesign.Models;
 
-public class SkiaPreviewBuilder : IPreviewBuilder
+public class SkiaPreviewBuilder(SkiaFonts fonts) : IPreviewBuilder
 {
     private float _scaling = 1.0f;
     private Stream? _templateImage = null;
@@ -27,9 +27,7 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         using SKBitmap bitmap = new(width, height);
         using SKCanvas canvas = new(bitmap);
         using SKPaint paint = new();
-        using SKFontStyle boldFontStyle = new(SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
-        using SKTypeface openSansBoldTypeface = SKTypeface.FromFamilyName("Open Sans", boldFontStyle);
-        using SKFont openSansBlodFont = new(openSansBoldTypeface);
+        using SKFont openSansBoldFont = new(fonts.OpenSansBold);
 
         canvas.DrawColor(new(0xff_ff_ff_ff));
 
@@ -50,16 +48,16 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         #endregion
 
         #region DrawChannelName
-        openSansBlodFont.Size = ToScale(80.0f);
+        openSansBoldFont.Size = ToScale(80.0f);
         SKPoint channelNamePosition = new(
             channelImagePosition.Right + ToScale(25),
-            padding + openSansBlodFont.Size / 2 + (int)(channelImageSize / 2.5)
+            padding + openSansBoldFont.Size / 2 + (int)(channelImageSize / 2.5)
         );
         float channelNameWidth = width - channelNamePosition.X - padding;
         if (_channelName != null)
         {
             paint.Color = new SKColor(0, 0, 0, 255);
-            DrawTextLine(canvas, _channelName, channelNamePosition, channelNameWidth, openSansBlodFont, paint);
+            DrawTextLine(canvas, _channelName, channelNamePosition, channelNameWidth, openSansBoldFont, paint);
         }
         #endregion
 
@@ -96,39 +94,37 @@ public class SkiaPreviewBuilder : IPreviewBuilder
         #endregion
 
         #region DrawShowAssessment
-        openSansBlodFont.Size = ToScale(60.0f);
+        openSansBoldFont.Size = ToScale(60.0f);
         SKPoint showAssessmentPosition = new SKPoint(
             showInfoContainerPosition.Left + ToScale(965),
-            showInfoContainerPosition.Top + openSansBlodFont.Size + ToScale(18)
+            showInfoContainerPosition.Top + openSansBoldFont.Size + ToScale(18)
         );
 
         if (_showAssessment.HasValue)
         {
             paint.Color = new(0x00, 0x82, 0x1D, 0xff);
             string assessmentText = _showAssessment.Value.ToString();
-            canvas.DrawText(assessmentText, showAssessmentPosition, SKTextAlign.Left, openSansBlodFont, paint);
+            canvas.DrawText(assessmentText, showAssessmentPosition, SKTextAlign.Left, openSansBoldFont, paint);
         }
         #endregion
 
         #region DrawShowName
-        openSansBlodFont.Size = ToScale(40.0f);
+        openSansBoldFont.Size = ToScale(40.0f);
         SKPoint showNamePosition = new SKPoint(
             showInfoContainerPosition.Left + ToScale(35.0f),
-            showInfoContainerPosition.Top + ToScale(32.0f) + openSansBlodFont.Size
+            showInfoContainerPosition.Top + ToScale(32.0f) + openSansBoldFont.Size
         );
         float showNameWidth = showAssessmentPosition.X - showNamePosition.X;
         if (_showName != null)
         {
             paint.Color = new(0xFF_00_00_00);
-            DrawTextLine(canvas, _showName, showNamePosition, showNameWidth, openSansBlodFont, paint);
+            DrawTextLine(canvas, _showName, showNamePosition, showNameWidth, openSansBoldFont, paint);
         }
         #endregion
 
         #region DrawShowDescription
 
-        using SKFontStyle lightFontStyle = new(SKFontStyleWeight.Light, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
-        using SKTypeface openSansLightTypeface = SKTypeface.FromFamilyName("Open Sans", lightFontStyle);
-        using SKFont openSansLightFont = new(openSansLightTypeface);
+        using SKFont openSansLightFont = new(fonts.OpenSansLight);
         openSansLightFont.Size = ToScale(40.0f);
 
         SKRect descriptionPosition = new(
