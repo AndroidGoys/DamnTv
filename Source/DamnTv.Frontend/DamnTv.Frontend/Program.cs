@@ -39,8 +39,8 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
-app.MapStaticAssets(); //спасибо дяд за кеширование
-//app.UseStaticFiles();
+//app.MapStaticAssets(); //спасибо дяд за кеширование
+app.UseStaticFiles();
 
 app.MapRazorComponents<App>()
     //.AddInteractiveServerRenderMode()

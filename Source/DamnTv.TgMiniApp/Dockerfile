@@ -15,12 +15,12 @@ COPY ["Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp.csproj", "Source/DamnTv.TgMiniAp
 RUN dotnet restore "./Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp.csproj"
 COPY . .
 WORKDIR "/src/Source/DamnTv.TgMiniApp"
-RUN dotnet build "./DamnTv.TgMiniApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./DamnTv.TgMiniApp.csproj" -c $BUILD_CONFIGURATION -o /app/build/
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DamnTv.TgMiniApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./DamnTv.TgMiniApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish/ /p:UseAppHost=false
 
 # Этот этап используется в рабочей среде или при запуске из VS в обычном режиме (по умолчанию, когда конфигурация отладки не используется)
 FROM base AS final

@@ -11,11 +11,12 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 
+app.UsePathBase("/mini-app");
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
+app.UseStaticFiles();
 app.MapRazorPages()
    .WithStaticAssets();
 

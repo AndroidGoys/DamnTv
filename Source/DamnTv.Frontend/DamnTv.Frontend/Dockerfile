@@ -13,16 +13,17 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Source/DamnTv.Frontend/DamnTv.Frontend/DamnTv.Frontend.csproj", "Source/DamnTv.Frontend/DamnTv.Frontend/"]
 COPY ["Source/DamnTv.Api.Client/DamnTv.Api.Client.csproj", "Source/DamnTv.Api.Client/"]
-COPY ["Source/DamnTv.Frontend.PreviewDesign", "Source/DamnTv.Frontend.PreviewDesign/"]
+COPY ["Source/DamnTv.Frontend.PreviewDesign/DamnTv.Frontend.PreviewDesign.csproj", "Source/DamnTv.Frontend.PreviewDesign/"]
+COPY ["Source/DamnTv.Frontend/DamnTv.Frontend.Client/DamnTv.Frontend.Client.csproj", "Source/DamnTv.Frontend/DamnTv.Frontend.Client/"]
 RUN dotnet restore "./Source/DamnTv.Frontend/DamnTv.Frontend/DamnTv.Frontend.csproj"
 COPY . .
 WORKDIR "/src/Source/DamnTv.Frontend/DamnTv.Frontend"
-RUN dotnet build "./DamnTv.Frontend.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./DamnTv.Frontend.csproj" -c $BUILD_CONFIGURATION -o /app/build/
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DamnTv.Frontend.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./DamnTv.Frontend.csproj" -c $BUILD_CONFIGURATION -o /app/publish/ /p:UseAppHost=false
 
 # Этот этап используется в рабочей среде или при запуске из VS в обычном режиме (по умолчанию, когда конфигурация отладки не используется)
 FROM base AS final

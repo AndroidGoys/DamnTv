@@ -2,7 +2,6 @@
 
 namespace DamnTv.Api.Client.Models
 {
-    [JsonSerializable(typeof(TvReleasesModel))]
     internal record TvReleasesModel
     {
         [JsonPropertyName("timeStart")]

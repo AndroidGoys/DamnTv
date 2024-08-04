@@ -2,7 +2,6 @@
 
 namespace DamnTv.Api.Client.Entities
 {
-    [JsonSerializable(typeof(Tag))]
     public class Tag
     {
         [JsonPropertyName("id")]

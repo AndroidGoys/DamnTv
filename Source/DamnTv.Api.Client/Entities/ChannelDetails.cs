@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace DamnTv.Api.Client.Entities
 {
-    [JsonSerializable(typeof(ChannelDetails))]
     public record ChannelDetails
     {
         [JsonPropertyName("id")]

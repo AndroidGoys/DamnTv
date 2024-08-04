@@ -4,7 +4,6 @@ using DamnTv.Api.Client.Entities;
 
 namespace DamnTv.Api.Client.Models
 {
-    [JsonSerializable(typeof(TvChannelReleaseModel))]
     internal record TvChannelReleaseModel
     {
         [JsonPropertyName("showId")]

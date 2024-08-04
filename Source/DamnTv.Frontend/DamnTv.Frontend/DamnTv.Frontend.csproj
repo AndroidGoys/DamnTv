@@ -4,19 +4,12 @@
     <TargetFramework>net9.0</TargetFramework>
 	<LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
-	<LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
-	<LangVersion>preview</LangVersion>
 	<InvariantGlobalization>true</InvariantGlobalization>
-	<LangVersion>preview</LangVersion>
 	<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
-	<LangVersion>preview</LangVersion>
     <IsPublishable>true</IsPublishable>
-	<LangVersion>preview</LangVersion>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-	<LangVersion>preview</LangVersion>
     <DockerfileContext>..\..\..</DockerfileContext>
-	<LangVersion>preview</LangVersion>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
