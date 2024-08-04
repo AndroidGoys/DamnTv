@@ -1,23 +1,14 @@
 services:
-  damntv.tgminiapp:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-    ports:
-      - "8080"
-
-  damntv.frontend.previewdesign:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-    ports:
-      - "8080"
-
-
   damntv.frontend:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
     ports:
-      - "8080"
+      - "5000:8080"
 
+  damntv.tgminiapp:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "5001:8080"

@@ -13,7 +13,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Source/DamnTv.Frontend/DamnTv.Frontend/DamnTv.Frontend.csproj", "Source/DamnTv.Frontend/DamnTv.Frontend/"]
 COPY ["Source/DamnTv.Api.Client/DamnTv.Api.Client.csproj", "Source/DamnTv.Api.Client/"]
-COPY ["Source/DamnTv.Frontend/DamnTv.Frontend.Client/DamnTv.Frontend.Client.csproj", "Source/DamnTv.Frontend/DamnTv.Frontend.Client/"]
+COPY ["Source/DamnTv.Frontend.PreviewDesign", "Source/DamnTv.Frontend.PreviewDesign/"]
 RUN dotnet restore "./Source/DamnTv.Frontend/DamnTv.Frontend/DamnTv.Frontend.csproj"
 COPY . .
 WORKDIR "/src/Source/DamnTv.Frontend/DamnTv.Frontend"
