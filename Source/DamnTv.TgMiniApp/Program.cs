@@ -1,23 +1,10 @@
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+var pathBase = "/mini-app";
+app.UsePathBase(pathBase);
 
-WebApplication app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-}
-
-app.UsePathBase("/mini-app");
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.UseStaticFiles();
-app.MapRazorPages()
-   .WithStaticAssets();
+app.UseDefaultFiles();
+app.UseStaticFiles();   
 
 app.Run();

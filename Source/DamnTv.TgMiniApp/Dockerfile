@@ -11,10 +11,10 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp.csproj", "Source/DamnTv.TgMiniApp/"]
-RUN dotnet restore "./Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp.csproj"
+COPY ["Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp/DamnTv.TgMiniApp.csproj", "Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp/"]
+RUN dotnet restore "./Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp/DamnTv.TgMiniApp.csproj"
 COPY . .
-WORKDIR "/src/Source/DamnTv.TgMiniApp"
+WORKDIR "/src/Source/DamnTv.TgMiniApp/DamnTv.TgMiniApp"
 RUN dotnet build "./DamnTv.TgMiniApp.csproj" -c $BUILD_CONFIGURATION -o /app/build/
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
