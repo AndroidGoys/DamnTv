@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="node_modules\" />
+    <Folder Include="pages\" />
+    <Folder Include="widgets\" />
+    <Folder Include="features\" />
   </ItemGroup>
 
   <ItemGroup>
